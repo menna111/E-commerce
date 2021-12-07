@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\contactController;
+use App\Http\Controllers\checkoutController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\shopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +21,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+//shop
+Route::get('/shop',[ShopController::class,'index'])->name('shop');
+
+
+//checkout
+Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+
+
+//cart
+Route::get('/cart',[CartController::class,'index'])->name('cart');
+
+
+
+Route::get('/contact',[ContactController::class,'index'])->name('contact');
