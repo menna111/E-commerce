@@ -6,6 +6,9 @@ use App\Http\Controllers\contactController;
 use App\Http\Controllers\checkoutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\shopController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\FrontendController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +25,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
+
+
+ Route::middleware(['auth','admin'])->group(function(){
+    Route::get('/dashboard',[FrontendController::class,'index'])->name('dashboard');
+     Route::get('categories',[CategoryController::class,'index'])->name('categories');
+
+
+
+ });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
