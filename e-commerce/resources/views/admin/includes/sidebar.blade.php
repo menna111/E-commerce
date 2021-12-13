@@ -33,12 +33,21 @@
                     </a>
 
                 </li>
+
+
                 <li class="nav-item">
                     <a href="{{route('categories')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Categories
-                            <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products')}}" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                             Products
                         </p>
                     </a>
                 </li>
@@ -48,7 +57,6 @@
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             setting
-                            <span class="right badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>

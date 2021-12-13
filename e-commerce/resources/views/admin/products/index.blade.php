@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h1>Categories</h1>
+            <h1>Products</h1>
             @if (session()->has('success'))
                 <div class="alert alert-success">
                     {{session()->get('success')}}
@@ -11,7 +11,7 @@
             @endif
         </div>
         <div class="card-body ">
-            <a href="{{route('category.add')}}" class="btn btn-primary  m-3"   >Add Category </a>
+            <a href="{{route('product.add')}}" class="btn btn-primary  m-3"   >Add Product </a>
             <table class="table border">
                 <thead>
                 <tr>
@@ -24,23 +24,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($categories as $category)
+                @forelse($products as $product)
                     <tr>
-                        <td>{{$category->id}}</td>
-                        <td>{{$category->name}}</td>
-                        <td>{{$category->description}}</td>
+                        <td>{{$product->id}}</td>
+                        <td>{{$product->name}}</td>
+                        <td>{{$product->description}}</td>
                         <td>
-                            <img style="height: 50px; width: 50px" src="{{asset($category->image)}}" alt="category">
-                           </td>
+                            <img style="height: 50px; width: 50px" src="{{asset($product->image)}}" alt="Product">
+                        </td>
                         <td>
-                            <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary">Edit</a>
-                            <a href="{{route('category.delete',$category->id)}}" class="btn btn-danger">Delete</a>
+                            <a href="{{route('category.edit',$product->id)}}" class="btn btn-primary">Edit</a>
+                            <a href="{{route('category.delete',$product->id)}}" class="btn btn-danger">Delete</a>
 
                         </td>
 
                     </tr>
                 @empty
-                        <p>there is no category yet</p>
+                    <p>there is no Product yet</p>
                 @endforelse
                 </tbody>
             </table>
@@ -49,16 +49,16 @@
 
 @endsection
 @section('script')
-   <script>
-       function add_category(){
-           $.ajax({
-               type: "GET",
-               url: `{{route('category.add')}}`,
+    <script>
+        {{--function add_category(){--}}
+        {{--    $.ajax({--}}
+        {{--        type: "GET",--}}
+        {{--        url: `{{route('category.add')}}`,--}}
 
 
 
-           } )
+        {{--    } )--}}
 
-       }
-   </script>
+        {{--}--}}
+    </script>
 @endsection

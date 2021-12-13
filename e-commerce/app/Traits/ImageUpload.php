@@ -6,29 +6,26 @@ use  Intervention\Image\Facades\Image;
 
 Trait ImageUpload
 {
-    function uploadImage($image,$directoty,$quality,$width=false,$height=false):string
+    function uploadImage($image,$directory,$quality,$width=false,$height=false):string
     {
         // 1-making a name to image
-        $file_extention=$image->getClientOriginalExtension();
+
+        $file_extention = $image->getClientOriginalExtension();
         $file_name=Str::random(20) . '.' . $file_extention;
 
 
         // 2- creating the directory that images will be saved in
-        if(! is_dir($directoty)){
-            mkdir($directoty,0777,true);
+        if(! is_dir($directory)){
+            mkdir($directory,0777,true);
         }
 
         // 3- we tell pacage what is image
         $img=Image::make($image->getRealPath());
-        if($width == true OR $height ==true){
+        if ($width == true OR $height ==true){
             $img->resize($width,$height);
-            $img->save($directoty . '/' .$file_name, $quality);
-        }else {
-
-
-            $img->save($directoty . '/'. $file_name, $quality);
         }
-        return  $directoty . '/' . $file_name ;
+        $img->save($directory . '/' .$file_name, $quality);
+        return  $directory . '/' . $file_name ;
     }
 
 }

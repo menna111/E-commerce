@@ -38,5 +38,12 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('status'))
+    <script>
+        swal("{{session('status')}}")
+    </script>
+    @endif
+@yield('script')
 </body>
 </html>
