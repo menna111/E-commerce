@@ -11,14 +11,21 @@ use Illuminate\Support\Facades\Validator;
 
 
 class CategoryController extends Controller
-{ use ImageUpload,\App\Traits\ResponseTrait;
+{
+    use ImageUpload,\App\Traits\ResponseTrait;
+
+
     public function index(){
         $categories=Category::all();
         return view('admin.category.index',compact('categories'));
     }
+
+
     public function add(){
         return view('admin.category.add');
     }
+
+
     public function store(Request $request){
 
          //validation
@@ -63,10 +70,14 @@ class CategoryController extends Controller
         return  redirect('/categories')->with('status','Category Added successfully');
     }
 
+
+
     public function edit($id){
         $category=Category::findOrFail($id);
         return view('admin.Category.edit',compact('category'));
     }
+
+
     public function update(Request $request,$id){
         $category=Category::findOrFail($id);
         //validation
@@ -107,6 +118,8 @@ class CategoryController extends Controller
         }
         return redirect('/categories')->with('success','updated successfully');
     }
+
+
     public function delete($id){
         $category=Category::findOrFail($id);
         $category->delete();
