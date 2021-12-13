@@ -138,6 +138,9 @@ class ProductController extends Controller
     public function delete($id){
         $product=product::findOrFail($id);
         $product->delete();
+        return  redirect('/products')->with('status','Product deleted successfully');
+
+
     }
 
 }
