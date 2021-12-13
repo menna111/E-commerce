@@ -1,5 +1,5 @@
 @extends('admin.layouts.admin-dashboard')
-@section('title','category')
+@section('title','products')
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -16,8 +16,10 @@
                 <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Category</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Selling Price</th>
                     <th>Image</th>
                     <th>Action</th>
 
@@ -27,14 +29,17 @@
                 @forelse($products as $product)
                     <tr>
                         <td>{{$product->id}}</td>
+                        <td>{{$product->category->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>{{$product->description}}</td>
+                        <td>{{$product->selling_price}}</td>
+
                         <td>
                             <img style="height: 50px; width: 50px" src="{{asset($product->image)}}" alt="Product">
                         </td>
                         <td>
-                            <a href="{{route('category.edit',$product->id)}}" class="btn btn-primary">Edit</a>
-                            <a href="{{route('category.delete',$product->id)}}" class="btn btn-danger">Delete</a>
+                            <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary">Edit</a>
+                            <a href="{{route('product.delete',$product->id)}}" class="btn btn-danger">Delete</a>
 
                         </td>
 

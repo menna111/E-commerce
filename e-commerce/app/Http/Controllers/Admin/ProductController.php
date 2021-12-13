@@ -15,11 +15,11 @@ class ProductController extends Controller
 
     public function index(){
         $products=product::all();
-        return view('admin.products.index',compact('products'));
+        return view('admin.product.index',compact('products'));
     }
     public function add(){
         $categories=Category::all();
-        return view('admin.products.add',compact('categories'));
+        return view('admin.product.add',compact('categories'));
     }
     public function store(Request $request){
         //validation
@@ -72,6 +72,20 @@ class ProductController extends Controller
 
         }
         return  redirect('/products')->with('status','Product Added successfully');
+    }
+
+    public function edit($id){
+        $product=product::findOrfail($id);
+        $categories=Category::all();
+        return view('admin.product.edit',compact('product','categories'));
+    }
+    public function update(Request $request,$id){
+
+
+    }
+    public function delete($id){
+        $product=product::findOrFail($id);
+        $product->delete();
     }
 
 }
