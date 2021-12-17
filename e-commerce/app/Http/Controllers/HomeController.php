@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $trending_products=product::where('trending','1')->get();
+        $sub_category=SubCategory::all()->except('1');
+        return view('home',compact('trending_products','sub_category'));
+    }
+    public function showcategory($id){
+        $sub_category=SubCategory::findOrFail($id);
+        $products=product::where('sub_category_id',$id)->get();
+        return view('users.products.index',compact('products','sub_category'));
     }
 }

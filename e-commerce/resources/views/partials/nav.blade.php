@@ -18,7 +18,7 @@
             </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="./index.html">Home</a></li>
+                    <li class="active"><a href="{{route('home')}}">Home</a></li>
                     <li><a href="{{route('shop')}}">Shop</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">

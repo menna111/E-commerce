@@ -37,18 +37,18 @@
                                   <span class="invalid-feedback" role="alert">
                                      <strong>{{ $message }}</strong>
                                  </span>
-                                    @enderror                
+                                    @enderror
                             </div>
 
                             <div class="group-input">
                                 <label for="username"> email address *</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" email="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror" email="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
                                   <span class="invalid-feedback" role="alert">
                                      <strong>{{ $message }}</strong>
                                  </span>
-                                    @enderror                
+                                    @enderror
                             </div>
                             <div class="group-input">
                                 <label for="pass">Password *</label>
@@ -75,7 +75,7 @@
         </div>
     </div>
     <!-- Register Form Section End -->
-    
+
     <!-- Partner Logo Section Begin -->
     <div class="partner-logo">
         <div class="container">

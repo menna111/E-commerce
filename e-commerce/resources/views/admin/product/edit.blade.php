@@ -1,5 +1,5 @@
 @extends('admin.layouts.admin-dashboard')
-@section('title','category')
+@section('title','product')
 <style>
     .form-select{
         width: 100%;
@@ -38,6 +38,14 @@
 
                         </select>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <select class="form-select" name="sub_category_id">
+                            @foreach($sub_category as $item)
+                            <option value="{{$item->id}}" @if( $product->subcategory->gender == $item->gender) selected @endif >{{$item->gender}}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Name</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}">
@@ -60,8 +68,8 @@
                         <input type="number" name="original_price" class="form-control" value="{{$product->original_price}}">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label>selling Price</label>
-                        <input type="number" name="selling_price" class="form-control" value="{{$product->selling_price}}">
+                        <label>Price after sale</label>
+                        <input type="number" name="after_sale" class="form-control" value="{{$product->after_sale}}">
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -79,8 +87,8 @@
                         <input type="checkbox"  name="status" {{$product->status}} == 1 ? 'checked :'' >
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="">Popular</label>
-                        <input type="checkbox"  name="popular" {{$product->popular}} == 1 ? 'checked' :'' >
+                        <label for="">Trending</label>
+                        <input type="checkbox"  name="trending" {{$product->trending}} == 1 ? 'checked' :'' >
                     </div>
 
                     <div class="col-md-12 mb-3">
@@ -98,7 +106,7 @@
                         <textarea name="meta_description" rows="3" class="form-control" >{{$product->meta_description}}</textarea>
                     </div>
                     @if($product->image)
-                        <img src="{{asset($product->image)}}">
+                        <img style="width: 200px;height: 200px" src="{{asset($product->image)}}">
                     @endif
                     <div class="col-md-12 mb-3">
                         <input type="file" name="image" >

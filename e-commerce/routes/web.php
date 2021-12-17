@@ -25,9 +25,16 @@ use App\Http\Controllers\Admin\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//Route::get('/',[HomeController::class,'index']);
 
 Auth::routes();
+
+//user view
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/category/show/{id}',[HomeController::class,'showcategory'])->name('category.show');
+
+
+
 
 
  Route::middleware(['auth','admin'])->group(function(){
@@ -54,7 +61,6 @@ Auth::routes();
 
  });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 //shop

@@ -1,5 +1,5 @@
 @extends('admin.layouts.admin-dashboard')
-@section('title','category')
+@section('title','product')
 <style>
     .form-select{
         width: 100%;
@@ -39,6 +39,15 @@
 
                         </select>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <select class="form-select" name="sub_category">
+                            <option value="">Product for ?</option>
+                            @foreach($sub_category as $item)
+                            <option value="{{$item->id}}" >{{$item->gender}}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Name</label>
                         <input type="text" class="form-control" name="name">
@@ -61,8 +70,8 @@
                         <input type="number" name="original_price" class="form-control">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label>selling Price</label>
-                        <input type="number" name="selling_price" class="form-control">
+                        <label>Price after sale</label>
+                        <input type="number" name="after_sale" class="form-control">
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -80,8 +89,8 @@
                         <input type="checkbox"  name="status">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="">Popular</label>
-                        <input type="checkbox"  name="popular">
+                        <label for="">Trending</label>
+                        <input type="checkbox"  name="trending">
                     </div>
 
                     <div class="col-md-12 mb-3">
