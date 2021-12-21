@@ -19,7 +19,7 @@
                     <th>Category</th>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Selling Price</th>
+                    <th> Price</th>
                     <th>Image</th>
                     <th>Action</th>
 
@@ -32,7 +32,7 @@
                         <td>{{$product->category->name}}</td>
                         <td>{{$product->name}}</td>
                         <td>{{$product->description}}</td>
-                        <td>{{$product->selling_price}}</td>
+                        <td>{{$product->after_sale}}</td>
 
                         <td>
                             <img style="height: 50px; width: 50px" src="{{asset($product->image)}}" alt="Product">

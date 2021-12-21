@@ -36,4 +36,9 @@ class HomeController extends Controller
         $products=product::where('sub_category_id',$id)->get();
         return view('users.products.index',compact('products','sub_category'));
     }
+    public function showproduct($id){
+
+           $product= product::findOrFail($id);
+            return view('users.products.view',compact('product'));
+    }
 }

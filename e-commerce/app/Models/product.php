@@ -13,7 +13,7 @@ class product extends Model
         'cate_id',
         'sub_category_id',
         'name',
-        'slug',
+
         'small_description',
         'description',
         'original_price',

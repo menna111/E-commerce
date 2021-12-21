@@ -50,10 +50,7 @@
                         <label for="">Name</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}">
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="">Slug</label>
-                        <input type="text" class="form-control" name="slug" value="{{$product->slug}}">
-                    </div>
+
                     <div class="col-md-12 mb-3">
                         <label for=""> Small Description</label>
                         <textarea name="small_description" rows="3" class="form-control">{{$product->small_description}}</textarea>
@@ -84,11 +81,11 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="">Status</label>
-                        <input type="checkbox"  name="status" {{$product->status}} == 1 ? 'checked :'' >
+                        <input type="checkbox"  name="status" {{$product->status}} == 1 ? checked : '' >
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Trending</label>
-                        <input type="checkbox"  name="trending" {{$product->trending}} == 1 ? 'checked' :'' >
+                        <input type="checkbox"  name="trending" {{$product->trending}} == 1  ? checked : '' >
                     </div>
 
                     <div class="col-md-12 mb-3">

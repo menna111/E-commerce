@@ -15,17 +15,17 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cate_id');
+            $table->unsignedBigInteger('cate_id');
             $table->foreign('cate_id')->on('categories')->references('id')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->string('sub_category_id')->default('1');
-            $table->foreign('sub_category_id')->on('sub_category')->references('id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('sub_category_id')->default('1');
+            $table->foreign('sub_category_id')->on('sub_categories')->references('id')->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->string('name');
             $table->mediumText('small_description');
             $table->Text('description');
             $table->string('original_price');
-            $table->string('selling_price');
+            $table->string('after_sale');
             $table->string('image')->nullable();
             $table->string('qty');
             $table->string('tax');

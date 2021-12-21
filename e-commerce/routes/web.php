@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\FrontendController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ use App\Http\Controllers\Admin\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test',[TestController::class,'test']);
 //Route::get('/',[HomeController::class,'index']);
 
 Auth::routes();
@@ -32,11 +35,14 @@ Auth::routes();
 //user view
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/category/show/{id}',[HomeController::class,'showcategory'])->name('category.show');
+Route::get('/product/show/{id}',[HomeController::class,'showproduct'])->name('product.show');
 
 
+Route::middleware('auth')->group(function (){
+    Route::Post('/cart/add',[CartController::class,'add'])->name('cart.add');
+});
 
-
-
+//////// ///////////////////       admin /////////////////////////
  Route::middleware(['auth','admin'])->group(function(){
     Route::get('/dashboard',[FrontendController::class,'index'])->name('dashboard');
 

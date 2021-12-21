@@ -43,11 +43,11 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
                     @csrf
                 </form>
-                
+
                             <a href="{{route('logout')}}" type="button" class="login-panel" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                                 <i class="fa fa-user" aria-hidden="true"></i>Logout</a>
-                                
+
 
                 <div class="lan-selector">
                     <select class="language_drop" name="countries" id="countries" style="width:300px;">
@@ -101,7 +101,7 @@
                         </li>
                         <li class="cart-icon">
                             <a href="#">
-                                <i class="icon_bag_alt"></i>
+                                <i class="fa fa-shopping-cart"></i>
                                 <span>3</span>
                             </a>
                             <div class="cart-hover">
@@ -159,6 +159,7 @@
 
 
 @include('partials.footer')
+@yield('script')
 </body>
 
 </html>

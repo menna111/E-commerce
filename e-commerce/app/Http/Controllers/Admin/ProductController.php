@@ -30,11 +30,10 @@ class ProductController extends Controller
             [
                 'name'        => 'required|string|min:3|max:255,unique:products',
                 'sub_category_id'        => 'required',
-                'slug'         => 'required|string|min:3|max:255',
                 'small_description'  => 'required|string|min:3|max:255',
                 'description'  => 'required|string|min:3|max:255',
-                'original_price'=>'required|numeric',
-                'selling_price'=>'required|numeric',
+                'after_sale'=>'required|numeric',
+
                 'image'          => 'nullable|file|mimes:png,jpg,jpeg,svg',
                 'qty'     =>'required|numeric',
                 'tax'     =>'required|numeric',
@@ -46,19 +45,21 @@ class ProductController extends Controller
 
         try {
             DB::beginTransaction();
-            if ($request->has('image')){
-                $image=$this->uploadImage($request->file('image'),'uploaded/categories',50);
-            }else{
-                $image=null;
-            }
+            $image = $request->has('image') ? $this->uploadImage($request->file('image'),'uploaded/categories',50) : null;
+//            if ($request->has('image')){
+//                $image=$this->uploadImage($request->file('image'),'uploaded/categories',50);
+//            }else{
+//                $image=null;
+//            }
+
             $product = product::create([
                 'cate_id'=>$request['cate_id'],
                 'sub_category_id'=>$request['sub_category_id'],
                 'name' => $request['name'],
-                'slug' => $request['slug'],
+
                 'small_description' => $request['small_description'],
                 'description' => $request['description'],
-                'original_price'=>$request->input('original_price'),
+                'original_price' =>$request['original_price'],
                 'after_sale'=>$request['after_sale'],
                 'image'     => $image,
                 'qty' => $request['qty'],
@@ -72,7 +73,7 @@ class ProductController extends Controller
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
-//            dd($exception->getMessage());
+            dd($exception->getMessage());
             return  redirect()->back()->with('error', 'something wrong happened');
 
         }
@@ -95,7 +96,7 @@ class ProductController extends Controller
             [
                 'name'        => 'required|string|min:3|max:255,unique:products'. $id,
                 'sub_category_id'        =>'required',
-                'slug'         => 'required|string|min:3|max:255',
+
                 'small_description'  => 'required|string|min:3|max:255',
                 'description'  => 'required|string|min:3|max:255',
                 'original_price'=>'required|numeric',
@@ -120,7 +121,7 @@ class ProductController extends Controller
                 'cate_id'=>$request['cate_id'],
                 'sub_category_id'=>$request['sub_category_id'],
                 'name' => $request['name'],
-                'slug' => $request['slug'],
+
                 'small_description' => $request['small_description'],
                 'description' => $request['description'],
                 'original_price'=>$request->input('original_price'),

@@ -6,17 +6,18 @@
             <div class="row">
                 <h2>{{$sub_category->gender}}</h2>
                 @forelse($products as $product)
-                    <div class="product-item p-5 m-5">
+                    <div class="product-item p-2 m-2">
                         <div class="pi-pic">
-                            <img style="height: 350px; width: auto" src="{{asset($product->image)}}" alt="">
+                            <img style="height: 270px; width: auto" src="{{asset($product->image)}}" alt="">
+                            @if($product->after_sale)
                             <div class="sale">Sale</div>
+                            @endif
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                <li class="quick-view"><a href="{{route('product.show',$product->id)}}">+ View Product</a></li>
                             </ul>
                         </div>
                         <div class="pi-text">
