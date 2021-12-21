@@ -106,32 +106,29 @@
                             </a>
                             <div class="cart-hover">
                                 <div class="select-items">
+                                    @php
+                                        $cart_products=\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::id())->get();
+
+
+                                    @endphp
                                     <table>
                                         <tbody>
+                                        @forelse($cart_products as $prod)
                                         <tr>
-                                            <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
+                                            <td class="si-pic"><img src="{{asset($prod->image)}}" alt=""></td>
                                             <td class="si-text">
                                                 <div class="product-selected">
-                                                    <p>$60.00 x 1</p>
-                                                    <h6>Kabino Bedside Table</h6>
+                                                    <p> $ {{$prod->product_price}}</p>
+                                                    <h6>{{$prod->product_name}}</h6>
                                                 </div>
                                             </td>
                                             <td class="si-close">
                                                 <i class="ti-close"></i>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="si-pic"><img src="img/select-product-2.jpg" alt=""></td>
-                                            <td class="si-text">
-                                                <div class="product-selected">
-                                                    <p>$60.00 x 1</p>
-                                                    <h6>Kabino Bedside Table</h6>
-                                                </div>
-                                            </td>
-                                            <td class="si-close">
-                                                <i class="ti-close"></i>
-                                            </td>
-                                        </tr>
+                                        @empty
+                                            <p>you didnot add any product yet</p>
+                                        @endforelse
                                         </tbody>
                                     </table>
                                 </div>
@@ -140,7 +137,7 @@
                                     <h5>$120.00</h5>
                                 </div>
                                 <div class="select-button">
-                                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                                    <a href="{{route('cart')}}" class="primary-btn view-card">VIEW CARD</a>
                                     <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
                                 </div>
                             </div>

@@ -9,15 +9,16 @@
     <div class="container">
         <div class="card mb-3 shadow"  >
             <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{{asset($product->image)}}" class="img-fluid rounded-start" alt="...">
+                <div class="col-md-4 ">
+                    <img id="img" src="{{asset($product->image)}}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h2 class="card-title">{{$product->name}}</h2>
                         <hr>
                         <label class="me-3">Original Price :<s> {{$product->original_price}}</s></label> &nbsp; &nbsp; &nbsp;
-                        <label class="fw-bold"><b> Price on sale :${{$product->after_sale}}</b></label>
+                        <label><b>Price on sale : $</b></label>
+                        <label id="product_price" class="fw-bold"> {{$product->after_sale}}</label>
 
                         <p class="card-text">{{$product->description}}</p>
                         <hr>
@@ -74,15 +75,23 @@
 
         $('#add_cart').click(function (e) {
             e.preventDefault();
-                console.log('hiii');
+
+            var product_name=$('h2').text();
             var product_id=$('#prod_id').val();
             var qty=$('#qty_val').val();
+            var image=$('#img').attr('src');
+            var product_price=$('#product_price').text();   //label value
+                // alert(image);
+
             $.ajax({
                 method:"POST",
                 url:"{{ route('cart.add') }}",
                 data:{
                     'product_id' : product_id ,
-                    'product_qty' : qty
+                    'product_name' :product_name,
+                    'product_qty' : qty,
+                    'product_image' :image,
+                    'product_price' :product_price
 
                 },
                 success: function(response) {
@@ -93,6 +102,7 @@
                             text: response.msg,
                         })
                     }else{
+                        // alert(response.msg);
                         Swal.fire({
                             icon: 'error',
                             title: 'خطا',

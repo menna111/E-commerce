@@ -37,9 +37,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/category/show/{id}',[HomeController::class,'showcategory'])->name('category.show');
 Route::get('/product/show/{id}',[HomeController::class,'showproduct'])->name('product.show');
 
-
+//cart
 Route::middleware('auth')->group(function (){
     Route::Post('/cart/add',[CartController::class,'add'])->name('cart.add');
+    Route::get('/cart',[CartController::class,'index'])->name('cart');
 });
 
 //////// ///////////////////       admin /////////////////////////
