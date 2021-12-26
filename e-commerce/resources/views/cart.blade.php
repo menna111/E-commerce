@@ -19,7 +19,7 @@
     <!-- Breadcrumb Section Begin -->
 
     <!-- Shopping Cart Section Begin -->
-    <section class="shopping-cart spad">
+    <section class="shopping-cart spad shadow">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -36,10 +36,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @php $total=0; @endphp
                             @forelse($products as $prod)
                                 <tr>
-{{--                                    @dd($products)--}}
-                                    <td class="cart-pic first-row"><img src="{{asset($prod->image)}}" alt=""></td>
+                                    <td class="cart-pic first-row"><img style="height: 100px;width: auto" src="{{asset($prod->image)}}" alt=""></td>
                                     <td class="cart-title first-row">
                                         <h5>{{$prod->product_name}}</h5>
                                     </td>
@@ -52,8 +52,9 @@
                                         </div>
                                     </td>
                                     <td class="total-price first-row">$60.00</td>
-                                    <td class="close-td first-row"><i class="ti-close"></i></td>
+                                    <td class="close-td first-row"><i onclick="delete_product({{$prod->id}});" class="ti-close"></i></td>
                                 </tr>
+                                @php $total +=$prod->product->after_sale * $prod->product_qty    @endphp
                             @empty
                             <p>you havenot any product yet</p>
                             @endforelse
@@ -77,10 +78,10 @@
                         <div class="col-lg-4 offset-lg-4">
                             <div class="proceed-checkout">
                                 <ul>
-                                    <li class="subtotal">Subtotal <span>$240.00</span></li>
-                                    <li class="cart-total">Total <span>$240.00</span></li>
+                                    <li class="subtotal">Subtotal <span>${{$total}}</span></li>
+                                    <li class="cart-total">Total <span>${{$total}}</span></li>
                                 </ul>
-                                <a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                <a href="{{route('checkout')}}" class="proceed-btn">PROCEED TO CHECK OUT</a>
                             </div>
                         </div>
                     </div>
@@ -124,4 +125,33 @@
     </div>
     <!-- Partner Logo Section End -->
 
+@endsection
+@section('script')
+    <script>
+        function delete_product(id){
+            $.ajax({
+                type:'GET',
+                url:`{{url('/cart/delete')}}/${id}`,
+                success: function(response) {
+                    if(response.status == true){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تم بنجاح',
+                            text: response.msg,
+                        })
+                    }else{
+                        // alert(response.msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا',
+                            text: response.msg,
+                        })
+                    }
+
+                }
+
+            })
+        }
+
+    </script>
 @endsection

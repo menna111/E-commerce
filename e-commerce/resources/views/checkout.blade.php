@@ -86,11 +86,11 @@
                             <div class="order-total">
                                 <ul class="order-table">
                                     <li>Product <span>Total</span></li>
-                                    <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                    <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                    <li class="fw-normal">Combination x 1 <span>$120.00</span></li>
-                                    <li class="fw-normal">Subtotal <span>$240.00</span></li>
-                                    <li class="total-price">Total <span>$240.00</span></li>
+                                    @forelse($products as $product)
+                                    <li class="fw-normal">{{$product->product_name}} <span>${{$product->product_price}}</span></li>
+                                    @empty
+                                        <li class="fw-normal"></li>
+                                    @endforelse
                                 </ul>
                                 <div class="payment-check">
                                     <div class="pc-item">

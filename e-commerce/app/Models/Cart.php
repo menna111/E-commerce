@@ -11,4 +11,7 @@ class Cart extends Model
     protected $fillable=[
         'user_id','product_id','product_name','product_qty','image','product_price',
     ];
+    public function product(){
+        return $this->belongsTo(product::class,'product_id');
+    }
 }

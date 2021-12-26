@@ -27,12 +27,7 @@ class CartController extends Controller
 
        if($product= product::where('id',$product_id)->first()) {
            try{
-//           DB::beginTransaction();
-//           if ($request->has('image')) {
-//               $image = $this->uploadImage($request->file('image'), 'uploaded/cart/product/' . $id, 50);
-//           } else {
-//               $image = null;
-//           }
+
            Cart::create([
                'user_id' => Auth::id(),
                'product_id' => $request['product_id'],
@@ -43,7 +38,7 @@ class CartController extends Controller
 
 
            ]);
-//           DB::commit();
+
                return $this->returnSuccess('added to cart successfully',200);
 
        }catch (\Exception $exception){
@@ -57,5 +52,15 @@ class CartController extends Controller
 //       else{
 //           return response()->json(['status' =>'its not exist']);
 //       }
+    }
+
+    public function delete($id){
+
+        $product=Cart::whereId($id)->first();
+        if (is_null($product) ){
+            return $this->returnError('no product with this id',200);
+        }
+        $product->delete();
+        return $this->returnSuccess('deleted',200);
     }
 } //end of class

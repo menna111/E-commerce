@@ -27,7 +27,7 @@
                             <li><a href="#">Kid's</a></li>
                         </ul>
                     </li>
-                    <li><a href=".{{route('cart')}}">Cart</a></li>
+                    <li><a href="{{route('cart')}}">Cart</a></li>
                     <li><a href="{{route('contact')}}">Contact</a></li>
                     <li><a href="#">Pages</a>
                         <ul class="dropdown">

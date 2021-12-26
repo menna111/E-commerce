@@ -41,6 +41,11 @@ Route::get('/product/show/{id}',[HomeController::class,'showproduct'])->name('pr
 Route::middleware('auth')->group(function (){
     Route::Post('/cart/add',[CartController::class,'add'])->name('cart.add');
     Route::get('/cart',[CartController::class,'index'])->name('cart');
+    Route::get('/cart/delete/{id}',[CartController::class,'delete'])->name('cart.delete');
+
+    //checkout
+    Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+
 });
 
 //////// ///////////////////       admin /////////////////////////
@@ -74,8 +79,7 @@ Route::middleware('auth')->group(function (){
 Route::get('/shop',[ShopController::class,'index'])->name('shop');
 
 
-//checkout
-Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+
 
 
 //cart

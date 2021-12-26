@@ -21,7 +21,13 @@
                         <label id="product_price" class="fw-bold"> {{$product->after_sale}}</label>
 
                         <p class="card-text">{{$product->description}}</p>
+
                         <hr>
+                        @if($product->qty > 0)
+                            <label class="badge bg-success">In Stock</label>
+                        @else
+                            <label class="badge bg-danger">Out Of Stock</label>
+                        @endif
                         <div class="row mt-2">
                             <div class="col-md-3">
                                 <label>Quantity</label>
@@ -36,7 +42,9 @@
                                 <form  class="d-inline">
                                     @csrf
                                     <input type="hidden" id="prod_id" value="{{$product->id}}">
+                                    @if($product->qty > 0)
                                     <button type="submit" id="add_cart" class="btn btn-warning "> <a style="color: white;" href=""> <i class="fa fa-shopping-cart"></i> <b>add to cart</b></a> </button>
+                                    @endif
                                 </form>
                                 <button  class="btn btn-success"> <a style="color: white;" href=""> <i class="fa fa-heart"></i> <b>add to favourite</b></a> </button>
 

@@ -100,14 +100,18 @@
                             </a>
                         </li>
                         <li class="cart-icon">
+                            @php
+                                $products_num=\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::id())->get()->count();
+
+                            @endphp
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>3</span>
+                                <span>{{$products_num}}</span>
                             </a>
                             <div class="cart-hover">
                                 <div class="select-items">
                                     @php
-                                        $cart_products=\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::id())->get();
+                                        $cart_products=\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::id())->take(2)->get();
 
 
                                     @endphp
@@ -115,7 +119,7 @@
                                         <tbody>
                                         @forelse($cart_products as $prod)
                                         <tr>
-                                            <td class="si-pic"><img src="{{asset($prod->image)}}" alt=""></td>
+                                            <td class="si-pic"><img style="height: 50px; width: auto" src="{{asset($prod->image)}}" alt=""></td>
                                             <td class="si-text">
                                                 <div class="product-selected">
                                                     <p> $ {{$prod->product_price}}</p>
