@@ -63,4 +63,19 @@ class CartController extends Controller
         $product->delete();
         return $this->returnSuccess('deleted',200);
     }
+
+
+    public function update(Request $request){
+//        return $this->returnData('ss', $request->all(), 200);
+        if($cart=Cart::whereId($request['id'])->where('user_id',Auth::id())->first()) {
+            $cart->product_qty = $request['p_qty'];
+            $cart->save();
+            return $this->returnSuccess('quantity updated',201);
+        }else{
+            return $this->returnError('no product',500);
+        }
+    }
+
+
+
 } //end of class

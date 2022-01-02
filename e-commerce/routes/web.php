@@ -42,10 +42,13 @@ Route::middleware('auth')->group(function (){
     Route::Post('/cart/add',[CartController::class,'add'])->name('cart.add');
     Route::get('/cart',[CartController::class,'index'])->name('cart');
     Route::get('/cart/delete/{id}',[CartController::class,'delete'])->name('cart.delete');
+    Route::post('/cart/update',[CartController::class,'update'])->name('cart.update');
 
     //checkout
-    Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
-
+    Route::prefix('admin')->group(function () {
+    Route::get('/',[CheckoutController::class,'index'])->name('checkout');
+    Route::post('placeorder',[checkoutController::class,'placeOrder'])->name('placeorder');
+    });
 });
 
 //////// ///////////////////       admin /////////////////////////

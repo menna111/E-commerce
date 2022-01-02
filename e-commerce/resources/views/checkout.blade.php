@@ -21,7 +21,8 @@
     <!-- Shopping Cart Section Begin -->
     <section class="checkout-section spad">
         <div class="container">
-            <form action="#" class="checkout-form">
+            <form id="checkout"  class="checkout-form">
+
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="checkout-content">
@@ -31,40 +32,40 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="fir">First Name<span>*</span></label>
-                                <input type="text" id="fir">
+                                <input type="text" id="fir" name="fname">
                             </div>
                             <div class="col-lg-6">
                                 <label for="last">Last Name<span>*</span></label>
-                                <input type="text" id="last">
+                                <input type="text" id="last" name="lname">
                             </div>
-                            <div class="col-lg-12">
-                                <label for="cun-name">Company Name</label>
-                                <input type="text" id="cun-name">
-                            </div>
+{{--                            <div class="col-lg-12">--}}
+{{--                                <label for="cun-name">Company Name</label>--}}
+{{--                                <input type="text" id="cun-name">--}}
+{{--                            </div>--}}
                             <div class="col-lg-12">
                                 <label for="cun">Country<span>*</span></label>
-                                <input type="text" id="cun">
+                                <input type="text" id="cun" name="country">
                             </div>
                             <div class="col-lg-12">
                                 <label for="street">Street Address<span>*</span></label>
-                                <input type="text" id="street" class="street-first">
-                                <input type="text">
+                                <input type="text" id="street" class="street-first" name="streetadress1">
+                                <input type="text" name="streetadress2">
                             </div>
                             <div class="col-lg-12">
                                 <label for="zip">Postcode / ZIP (optional)</label>
-                                <input type="text" id="zip">
+                                <input type="text" id="zip" name="postcode">
                             </div>
                             <div class="col-lg-12">
                                 <label for="town">Town / City<span>*</span></label>
-                                <input type="text" id="town">
+                                <input type="text" id="town" name="town">
                             </div>
                             <div class="col-lg-6">
                                 <label for="email">Email Address<span>*</span></label>
-                                <input type="text" id="email">
+                                <input type="text" id="email" name="email">
                             </div>
                             <div class="col-lg-6">
                                 <label for="phone">Phone<span>*</span></label>
-                                <input type="text" id="phone">
+                                <input type="text" id="phone" name="phone">
                             </div>
                             <div class="col-lg-12">
                                 <div class="create-item">
@@ -84,14 +85,31 @@
                         <div class="place-order">
                             <h4>Your Order</h4>
                             <div class="order-total">
-                                <ul class="order-table">
-                                    <li>Product <span>Total</span></li>
+                                <table class="table">
+                                    <thead>
+                                    <th>Product</th>
+                                    <th>quantity</th>
+                                    <th>Price</th>
+
+                                    </thead>
+                                    <tbody>
                                     @forelse($products as $product)
-                                    <li class="fw-normal">{{$product->product_name}} <span>${{$product->product_price}}</span></li>
+                                        <tr>
+                                             <td class="fw-normal">{{$product->product_name}} </td>
+                                             <td class="fw-normal">{{$product->product_qty}} </td>
+                                             <td class="fw-normal">{{$product->product_price}} </td>
+
+                                            <input hidden name="product_id" value="{{$product->id}}">
+                                            <input hidden name="product_name" value="{{$product->product_name}}">
+                                            <input hidden name="qty" value="{{$product->product_qty}}">
+                                            <input hidden name="price" value="{{$product->product_price}}">
+
+                                        </tr>
                                     @empty
-                                        <li class="fw-normal"></li>
+                                        <td class="fw-normal"><p style="color: red" ;>you have no thing to checkout</p></td>
                                     @endforelse
-                                </ul>
+                                    </tbody>
+                                </table>
                                 <div class="payment-check">
                                     <div class="pc-item">
                                         <label for="pc-check">
@@ -153,5 +171,48 @@
         </div>
     </div>
     <!-- Partner Logo Section End -->
+
+@endsection
+
+@section('script')
+    <script>
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#checkout').submit(function (e){
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            $.ajax({
+                method:"POST",
+                url:"{{ route('placeorder') }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if(response.status == true){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تم بنجاح',
+                            text: response.msg,
+                        })
+                    }else{
+                        console.log(response.msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا',
+                            text: response.msg,
+                        })
+                    }
+
+                }
+            })
+        })
+
+
+    </script>
 
 @endsection

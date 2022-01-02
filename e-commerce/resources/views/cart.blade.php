@@ -44,19 +44,31 @@
                                         <h5>{{$prod->product_name}}</h5>
                                     </td>
                                     <td class="p-price first-row">$ {{$prod->product_price}}</td>
+{{--                                    <td class="qua-col first-row">--}}
+{{--                                        <div class="quantity">--}}
+{{--                                            <div class="pro-qty">--}}
+{{--                                                <input hidden id="product_id" type="text" value="{{$prod->id}}">--}}
+
+{{--                                                <input id="qty" type="text" value="{{$prod->product_qty}}">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     <td class="qua-col first-row">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="{{$prod->product_qty}}">
-                                            </div>
-                                        </div>
+                                    <div class="input-group text-center mb-3">
+
+                                        <button onclick="decrese({{ $prod->id }});" class="input-group-text decrement-btn">-</button>
+                                        <input type="text" id="qty" name="quantity " value="{{$prod->product_qty}}" class="form-control qty-input_{{$prod->id}}" />
+
+                                        <button onclick="increse({{$prod->product->qty}}, {{$prod->id}});"  class="input-group-text increment-btn">+</button>
+                                    </div>
                                     </td>
                                     <td class="total-price first-row">$60.00</td>
                                     <td class="close-td first-row"><i onclick="delete_product({{$prod->id}});" class="ti-close"></i></td>
                                 </tr>
                                 @php $total +=$prod->product->after_sale * $prod->product_qty    @endphp
                             @empty
-                            <p>you havenot any product yet</p>
+                                <td>
+                            <p style="color: red;">you havenot any product yet</p>
+                                </td>
                             @endforelse
                             </tbody>
                         </table>
@@ -128,6 +140,92 @@
 @endsection
 @section('script')
     <script>
+
+
+
+        function increse(qty, id){
+
+            var value=$('.qty-input_' + id).val();   // input value
+            if(value < 10 && value< qty)
+                value ++;
+            $('.qty-input_' + id).val(value);
+
+
+            data= {
+                'id': id,
+                'p_qty': value,
+            }
+            $.ajax({
+                method: 'POST',
+                url:"{{route('cart.update')}}",
+                data:data,
+                success: function(response) {
+                    console.log(response)
+                    if(response.status == true){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تم بنجاح',
+                            text: response.msg,
+                        })
+                    }else{
+                        // alert(response.msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا',
+                            text: response.msg,
+                        })
+                    }
+
+                }
+
+            })
+
+        }
+
+        function decrese(id){
+            var dec_value=$('.qty-input_' + id).val();
+            if(dec_value > 1 )
+                dec_value -- ;
+            $('.qty-input_' + id).val(dec_value);
+
+
+            data= {
+                'id': id,
+                'p_qty': dec_value,
+            }
+            $.ajax({
+                method: 'POST',
+                url:"{{route('cart.update')}}",
+                data:data,
+                success: function(response) {
+                    if(response.status == true){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تم بنجاح',
+                            text: response.msg,
+                        })
+                    }else{
+                        // alert(response.msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا',
+                            text: response.msg,
+                        })
+                    }
+
+                }
+
+            })
+        }
+
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+
         function delete_product(id){
             $.ajax({
                 type:'GET',
@@ -149,8 +247,11 @@
                     }
 
                 }
-
             })
+
+
+
+
         }
 
     </script>
