@@ -53,6 +53,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('sub.add')}}" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Add sub Category
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>

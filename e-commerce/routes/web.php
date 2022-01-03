@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\FrontendController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\Admin\subcategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::middleware('auth')->group(function (){
     Route::post('/cart/update',[CartController::class,'update'])->name('cart.update');
 
     //checkout
-    Route::prefix('admin')->group(function () {
+    Route::prefix('checkout')->group(function () {
     Route::get('/',[CheckoutController::class,'index'])->name('checkout');
     Route::post('placeorder',[checkoutController::class,'placeOrder'])->name('placeorder');
     });
@@ -63,6 +64,13 @@ Route::middleware('auth')->group(function (){
      Route::post('category/update/{id}',[CategoryController::class,'update'])->name('category.update');
      Route::get('category/delete/{id}',[CategoryController::class,'delete'])->name('category.delete');
 
+
+     //sub_categories
+     Route::prefix('sub_category')->group(function () {
+         Route::get('/add',[subcategoryController::class,'add'])->name('sub.add');
+         Route::post('/store',[subcategoryController::class,'store'])->name('sub.store');
+
+     });
 
     //products
      Route::get('products',[ProductController::class,'index'])->name('products');
