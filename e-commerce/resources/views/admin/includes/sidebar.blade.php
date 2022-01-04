@@ -53,10 +53,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('sub.add')}}" class="nav-link">
+                    <a href="{{route('subcategories')}}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Add sub Category
+                            Subcategories
                         </p>
                     </a>
                 </li>
