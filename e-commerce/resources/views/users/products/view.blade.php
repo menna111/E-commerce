@@ -106,7 +106,7 @@
                     if(response.status == true){
                         Swal.fire({
                             icon: 'success',
-                            title: 'تم بنجاح',
+                            title: 'success',
                             text: response.msg,
                         })
                     }else{

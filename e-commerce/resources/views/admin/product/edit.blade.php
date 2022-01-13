@@ -12,7 +12,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h1>Add Product</h1>
+            <h1>Edit Product</h1>
 
         </div>
         <div class="card-body">
@@ -41,20 +41,17 @@
                     <div class="col-md-12 mb-3">
                         <select class="form-select" name="sub_category_id">
                             @foreach($sub_category as $item)
-                            <option value="{{$item->id}}" @if( $product->subcategory->gender == $item->gender) selected @endif >{{$item->gender}}</option>
+                            <option value="{{$item->id}}" @if( $product->subcategory->name == $item->name) selected @endif >{{$item->name}}</option>
                             @endforeach
 
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label for="">Name</label>
                         <input type="text" class="form-control" name="name" value="{{$product->name}}">
                     </div>
 
-                    <div class="col-md-12 mb-3">
-                        <label for=""> Small Description</label>
-                        <textarea name="small_description" rows="3" class="form-control">{{$product->small_description}}</textarea>
-                    </div>
+
                     <div class="col-md-12 mb-3">
                         <label for="">Description</label>
                         <textarea name="description" rows="3" class="form-control">{{$product->description}}</textarea>
@@ -80,28 +77,10 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="">Status</label>
-                        <input type="checkbox"  name="status" {{$product->status}} == 1 ? checked : '' >
-                    </div>
-                    <div class="col-md-6 mb-3">
                         <label for="">Trending</label>
                         <input type="checkbox"  name="trending" {{$product->trending}} == 1  ? checked : '' >
                     </div>
 
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta title</label>
-                        <input type="text" class="form-control" name="meta_title" value="{{$product->meta_title}}">
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta keyword</label>
-                        <textarea name="meta_keywords" rows="3" class="form-control" value="">{{$product->meta_keywords}}</textarea>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta description</label>
-                        <textarea name="meta_description" rows="3" class="form-control" >{{$product->meta_description}}</textarea>
-                    </div>
                     @if($product->image)
                         <img style="width: 200px;height: 200px" src="{{asset($product->image)}}">
                     @endif

@@ -54,6 +54,7 @@
 {{--                                        </div>--}}
                                     <td class="qua-col first-row">
                                     <div class="input-group text-center mb-3">
+                                        <input type="hidden" value="{{$prod->product_price}}" class="p_price">
 
                                         <button onclick="decrese({{ $prod->id }});" class="input-group-text decrement-btn">-</button>
                                         <input type="text" id="qty" name="quantity " value="{{$prod->product_qty}}" class="form-control qty-input_{{$prod->id}}" />
@@ -74,6 +75,7 @@
                         </table>
                     </div>
                     <div class="row">
+
                         <div class="col-lg-4">
                             <div class="cart-buttons">
                                 <a href="#" class="primary-btn continue-shop">Continue shopping</a>
@@ -144,7 +146,7 @@
 
 
         function increse(qty, id){
-
+            var p_price=$('.p_price').val();
             var value=$('.qty-input_' + id).val();   // input value
             if(value < 10 && value< qty)
                 value ++;
@@ -154,6 +156,7 @@
             data= {
                 'id': id,
                 'p_qty': value,
+                'p_price' : p_price,
             }
             $.ajax({
                 method: 'POST',
@@ -208,7 +211,7 @@
                         // alert(response.msg);
                         Swal.fire({
                             icon: 'error',
-                            title: 'خطا',
+                            title: 'error',
                             text: response.msg,
                         })
                     }

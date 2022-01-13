@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Traits\ImageUpload;
+use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
-    use ImageUpload,\App\Traits\ResponseTrait;
+    use ImageUpload,ResponseTrait;
+
 
 
     public function index(){
@@ -32,11 +34,9 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'name'        => 'required|string|min:3|max:255,unique:categories',
-                'slug'         => 'required|string|min:3|max:255',
+
                 'description'  => 'required|string|min:3|max:255',
-                'meta_title'  => 'required|string|min:3|max:255',
-                'meta_keywords'  => 'required|string|min:3|max:255',
-                'meta_description'  => 'required|string|min:3|max:255',
+
                 'image'          => 'nullable|file|mimes:png,jpg,jpeg,svg',
 
             ]);
@@ -51,13 +51,11 @@ class CategoryController extends Controller
             }
             $category = Category::create([
                 'name' => $request['name'],
-                'slug' => $request['slug'],
+
                 'description' => $request['description'],
-                'status' => $request['status'] == TRUE ? 1 : 0,
+
                 'popular' => $request['popular'] == TRUE ? 1 : 0,
-                'meta_title' => $request['meta_title'],
-                'meta_keywords' => $request['meta_keywords'],
-                'meta_description' => $request['meta_description'],
+
                 'image'     => $image,
             ]);
             DB::commit();
@@ -67,7 +65,8 @@ class CategoryController extends Controller
             return  redirect()->back()->with('error', 'something wrong happened');
 
         }
-        return  redirect('/categories')->with('status','Category Added successfully');
+
+        return  redirect('/category')->with('status','Category Added successfully');
     }
 
 
@@ -84,11 +83,9 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'name'        => 'required|string|min:3|max:255,unique:categories,id,' . $id,
-                'slug'         => 'required|string|min:3|max:255',
+
                 'description'  => 'required|string|min:3|max:255',
-                'meta_title'  => 'required|string|min:3|max:255',
-                'meta_keywords'  => 'required|string|min:3|max:255',
-                'meta_description'  => 'required|string|min:3|max:255',
+
                 'image'          => 'nullable|file|mimes:png,jpg,jpeg,svg',
 
             ]);
@@ -102,13 +99,10 @@ class CategoryController extends Controller
         $category -> update([
 
                'name' => $request['name'],
-                'slug' => $request['slug'],
                 'description' => $request['description'],
-                'status' => $request['status'] == TRUE ? 1 : 0,
+
                 'popular' => $request['popular'] == TRUE ? 1 : 0,
-                'meta_title' => $request['meta_title'],
-                'meta_keywords' => $request['meta_keywords'],
-                'meta_description' => $request['meta_description'],
+
                 'image'     => $image,
         ]);
            DB::commit();
@@ -116,13 +110,14 @@ class CategoryController extends Controller
             DB::rollBack();
 //            dd($exception->getMessage());
         }
-        return redirect('/categories')->with('success','updated successfully');
+        return redirect()->back()->with('success','updated successfully ');
+
     }
 
 
     public function delete($id){
         $category=Category::findOrFail($id);
         $category->delete();
-      return   redirect('/categories')->with('success','deleted successfully');
+      return   redirect('/category')->with('success','deleted successfully');
     }
 }

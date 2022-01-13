@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -26,9 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+//      $wo= product::all();
+//      $w= $wo->subcategory()->where('name','women')->get();
 
-        $trending_products=product::where('trending','1')->get();
-        $sub_category=SubCategory::all()->except('1');
+        $trending_products=product::where('trending','1')->take(10)->get();
+        $sub_category=SubCategory::all();
+
+//        $shifted = $sub_category->shift();
         return view('home',compact('trending_products','sub_category'));
     }
     public function showcategory($id){

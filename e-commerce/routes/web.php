@@ -24,9 +24,9 @@ use App\Http\Controllers\Admin\subcategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return redirect()->route('home');
+//});
 
 Route::get('/test',[TestController::class,'test']);  //seeder
 //Route::get('/',[HomeController::class,'index']);
@@ -34,7 +34,7 @@ Route::get('/test',[TestController::class,'test']);  //seeder
 Auth::routes();
 
 //user view
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/show/{id}',[HomeController::class,'showcategory'])->name('category.show');
 Route::get('/product/show/{id}',[HomeController::class,'showproduct'])->name('product.show');
 
@@ -118,3 +118,16 @@ Route::get('/shop',[ShopController::class,'index'])->name('shop');
 
 
 Route::get('/contact',[ContactController::class,'index'])->name('contact');
+
+
+//fatoorah payment
+
+Route::get('callback',function (){
+    return 'success';
+});
+
+Route::get('error',function (){
+    return 'payment failed';
+});
+
+

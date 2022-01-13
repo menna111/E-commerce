@@ -13,19 +13,14 @@ class product extends Model
         'cate_id',
         'sub_category_id',
         'name',
-
-        'small_description',
         'description',
         'original_price',
         'after_sale',
         'image',
         'qty',
         'tax',
-        'status',
         'trending',
-        'meta_title',
-        'meta_keywords',
-        'meta_description',
+
 
     ];
     public function category(){

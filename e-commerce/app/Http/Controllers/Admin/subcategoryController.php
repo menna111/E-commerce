@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Traits\ImageUpload;
+use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class subcategoryController extends Controller
 {
-    use ImageUpload;
+    use ImageUpload,ResponseTrait;
 
     public function index(){
         $subcategories=SubCategory::all();
@@ -55,7 +56,7 @@ class subcategoryController extends Controller
             return  redirect()->back()->with('error', 'something wrong happened');
 
         }
-        return  redirect('/sub_category/add')->with('status','sub Category Added successfully');
+        return $this->returnSuccess('added successfully',200);
     }
 
 
@@ -95,7 +96,7 @@ class subcategoryController extends Controller
             DB::rollBack();
 //            dd($exception->getMessage());
         }
-        return redirect('/sub_category')->with('success','updated successfully');
+        return $this->returnSuccess('updated successfully',201);
     }
 
 

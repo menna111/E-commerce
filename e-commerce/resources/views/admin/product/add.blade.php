@@ -43,20 +43,16 @@
                         <select class="form-select" name="sub_category_id">
                             <option value="">Product for ?</option>
                             @foreach($sub_category as $item)
-                            <option value="{{$item->id}}" >{{$item->gender}}</option>
+                            <option value="{{$item->id}}" >{{$item->name}}</option>
                             @endforeach
 
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label for="">Name</label>
                         <input type="text" class="form-control" name="name">
                     </div>
 
-                    <div class="col-md-12 mb-3">
-                        <label for=""> Small Description</label>
-                        <textarea name="small_description" rows="3" class="form-control"></textarea>
-                    </div>
                     <div class="col-md-12 mb-3">
                         <label for="">Description</label>
                         <textarea name="description" rows="3" class="form-control"></textarea>
@@ -81,29 +77,12 @@
                         <input type="number" name="qty" class="form-control">
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label for="">Status</label>
-                        <input type="checkbox"  name="status">
-                    </div>
+
                     <div class="col-md-6 mb-3">
                         <label for="">Trending</label>
                         <input type="checkbox"  name="trending">
                     </div>
 
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta title</label>
-                        <input type="text" class="form-control" name="meta_title">
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta keyword</label>
-                        <textarea name="meta_keywords" rows="3" class="form-control"></textarea>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta description</label>
-                        <textarea name="meta_description" rows="3" class="form-control"></textarea>
-                    </div>
                     <div class="col-md-12 mb-3">
                         <input type="file" name="image" >
                     </div>

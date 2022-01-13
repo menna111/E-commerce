@@ -46,12 +46,12 @@
         <div class="container-fluid">
             <div class="row">
                 @foreach($sub_category as $item)
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="single-banner">
-                        <img src="{{$item->image}}" alt="">
+                        <img style="height: 195px;" src="{{$item->image}}" alt="">
                         <a href="{{url('/category/show/'.$item->id)}}">
                         <div class="inner-text">
-                            <h4>{{$item->gender}}</h4>
+                            <h4>{{$item->name}}</h4>
                         </div>
                         </a>
                     </div>

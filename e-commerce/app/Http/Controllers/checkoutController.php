@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\FatoorahServices;
 use App\Models\Cart;
 use App\Models\client;
 use App\Models\order;
@@ -16,6 +17,11 @@ use mysql_xdevapi\Exception;
 class checkoutController extends Controller
 {
     use ResponseTrait;
+    private $fatoorahServices;
+    public function __construct(FatoorahServices $fatoorahServices){
+        $this->fatoorahServices=$fatoorahServices;
+    }
+
     public function index()
     {
         $id=Auth::id();
@@ -74,9 +80,25 @@ class checkoutController extends Controller
             }
             $products=Cart::where('user_id',Auth::id())->get();
             Cart::destroy($products);
+            //////
+            ///
+            $user=Auth::user();
+            $data=[
+                'CustomerName'       => $user->name,
+                'NotificationOption' => 'Lnk', //'SMS', 'EML', or 'ALL'
+                'InvoiceValue'       => '50'  , //total price to pay
+                'CustomerMobile'     => $client->phone,
+                'CustomerEmail'      => $user->email,
+                'CallBackUrl'        => 'www.google.com',
+                'ErrorUrl'           => 'www.youtube.com',
+                'Language'           => 'en',
+                'DisplayCurrencyIso' => 'KWD',
+            ];
+
+
             DB::commit();
-        return $this->returnSuccess('order placed successfully',201);
-        }catch (\Exception $exception){
+            return $this->fatoorahServices->sendPayment($data);
+           }catch (\Exception $exception){
             DB::rollBack();
 //            return  $this->returnError($exception->getMessage(),500);
             return  $this->returnError('حدث خطأ ما برجاء المحاولة لاحقا',500);
@@ -84,4 +106,26 @@ class checkoutController extends Controller
         }
 
     }
+
+
+//    public function payOrder(){
+//        $user=Auth::user();
+////        $user= Auth::guard('api')->user();
+//        dd($user);
+//        $client=client::whereId(Auth::id());
+////            dd($client);
+//        $data=[
+//            'CustomerName'       => $user->name,
+//            'NotificationOption' => 'Lnk', //'SMS', 'EML', or 'ALL'
+//            'InvoiceValue'       => '50'  , //total price to pay
+//            'CustomerMobile'     => $client->phone,
+//            'CustomerEmail'      => $user->email,
+//            'CallBackUrl'        => env('success_url'),
+//            'ErrorUrl'           => env('error_url'),
+//            'Language'           => 'en',
+//            'DisplayCurrencyIso' => 'KWD',
+//        ];
+//
+//        return $this->fatoorahServices->sendPayment($data);
+//    }
 }

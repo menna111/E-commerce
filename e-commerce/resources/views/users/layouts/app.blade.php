@@ -104,9 +104,13 @@
                                 $products_num=\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::id())->get()->count();
 
                             @endphp
-                            <a href="#">
+                            <a href="{{route('cart')}}">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>{{$products_num}}</span>
+
+                                    @if ($products_num >0)
+                                    <span> {{$products_num}}</span>
+                                @endif
+
                             </a>
                             <div class="cart-hover">
                                 <div class="select-items">
@@ -146,7 +150,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="cart-price">$150.00</li>
+{{--                        <li class="cart-price">$150.00</li>--}}
                     </ul>
                 </div>
             </div>

@@ -12,21 +12,16 @@ class TestController extends Controller
         for ($i = 1; $i < 30 ; $i++) {
             product::create([
                 'cate_id'=>1,
-                'sub_category_id'=> 2,
+                'sub_category_id'=> 12,
                 'name' => 'product number ' . $i,
-
-                'small_description' => 'small description',
-              'description' => 'description',
-               'original_price' =>1000,
+                'description' => 'description',
+                'original_price' =>1000,
                 'after_sale'=>900,
                 'image'     => 'uploaded/categories/KsBrLPYVHn6hoXmgJTPE.png',
                 'qty' => 10,
                 'tax' => 10,
-                'status' =>  0,
                 'trending' =>  1 ,
-                'meta_title' => 'desc',
-                'meta_keywords' => 'desc',
-                'meta_description' => 'desc',
+
             ]);
         }
         dd('done');
