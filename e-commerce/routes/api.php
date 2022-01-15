@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FatoorahController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\checkoutController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\Api\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +27,7 @@ Route::post('/register',  [AuthController::class,'register']);
 
 Route::post('/pay',[FatoorahController::class,'payOrder'])->middleware('token.auth');
 //Route::post('placeorder',[checkoutController::class,'placeOrder'])->name('placeorder')->middleware('token.auth');
-
-Route::get('/cart',[\App\Http\Controllers\Api\CartController::class,'index'])->name('cart')->middleware('token.auth');
+Route::middleware('token.auth')->group(function(){
+Route::get('/cart',[CartController::class,'index'])->name('cart');
+Route::Post('/add',[CartController::class,'add'])->name('cart.add');
+});

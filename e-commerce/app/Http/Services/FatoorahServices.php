@@ -25,9 +25,10 @@ class FatoorahServices
     }
 
 
-    public function buildRequest($uri,$method,$data=[]){
+    public function buildRequest($method,$uri,$data=[]){
 
         $request=new Request($method,$this->base_url . $uri ,$this->headers) ;
+
         if (! $data)
             return false ;
 

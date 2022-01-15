@@ -38,6 +38,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/show/{id}',[HomeController::class,'showcategory'])->name('category.show');
 Route::get('/product/show/{id}',[HomeController::class,'showproduct'])->name('product.show');
 
+
+Route::get('/clothes',[HomeController::class,'clothes'])->name('clothes');
+Route::get('/bags',[HomeController::class,'bags'])->name('bags');
+Route::get('/shoes',[HomeController::class,'shoes'])->name('shoes');
+
+
+
 //cart
 Route::middleware('auth')->group(function (){
 

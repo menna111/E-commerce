@@ -46,4 +46,23 @@ class HomeController extends Controller
            $product= product::findOrFail($id);
             return view('users.products.view',compact('product'));
     }
+
+    public function clothes(){
+
+       $clothes= product::where('cate_id','1')->get();
+        return view('users.clothes',compact('clothes'));
+    }
+
+    public function bags(){
+
+        $bags= product::where('cate_id','2')->get();
+        return view('users.bags',compact('bags'));
+    }
+
+
+    public function shoes(){
+
+        $shoes= product::where('cate_id','3')->get();
+        return view('users.shoes',compact('shoes'));
+    }
 }

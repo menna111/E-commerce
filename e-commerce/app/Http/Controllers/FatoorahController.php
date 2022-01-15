@@ -19,19 +19,19 @@ class FatoorahController extends Controller
     public function payOrder(){
         $user=Auth::user();
 //        $user= Auth::guard('api')->user();
-        dd($user);
-        $client=client::whereId(Auth::id());
-//            dd($client);
+
+        $client=client::where('user_id',Auth::id())->first();
+
         $data=[
-            'CustomerName'       => $user->name,
-            'NotificationOption' => 'Lnk', //'SMS', 'EML', or 'ALL'
-            'InvoiceValue'       => '50'  , //total price to pay
-            'CustomerMobile'     => $client->phone,
-            'CustomerEmail'      => $user->email,
-            'CallBackUrl'        => env('success_url'),
-            'ErrorUrl'           => env('error_url'),
-            'Language'           => 'en',
-            'DisplayCurrencyIso' => 'KWD',
+            "CustomerName"       => $user->name,
+            "NotificationOption" => 'Lnk', //'SMS', 'EML', or 'ALL'
+            "InvoiceValue"       => '50'  , //total price to pay
+            "CustomerMobile"     => $client->phone,
+            "CustomerEmail"      => $user->email,
+            "CallBackUrl"        => 'https://google.com/callback',
+            "ErrorUrl"           => 'https://youtube.com/callback',
+            "Language"           => 'en',
+            "DisplayCurrencyIso" => 'KWD',
         ];
 
         return $this->fatoorahServices->sendPayment($data);

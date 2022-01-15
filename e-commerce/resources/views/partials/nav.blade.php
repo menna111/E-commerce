@@ -6,28 +6,24 @@
                     <span>All departments</span>
                     <ul class="depart-hover">
                         <li class="active"><a href="#">Women’s Clothing</a></li>
-                        <li><a href="#">Men’s Clothing</a></li>
-                        <li><a href="#">Underwear</a></li>
-                        <li><a href="#">Kid's Clothing</a></li>
-                        <li><a href="#">Brand Fashion</a></li>
+                        <li><a href="c">Clothes</a></li>
+                        <li><a href="#">bags</a></li>
                         <li><a href="#">Accessories/Shoes</a></li>
-                        <li><a href="#">Luxury Brands</a></li>
-                        <li><a href="#">Brand Outdoor Apparel</a></li>
+
                     </ul>
                 </div>
             </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li class="active"><a href="{{route('home')}}">Home</a></li>
-                    <li><a href="{{route('shop')}}">Shop</a></li>
+
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
-                            <li><a href="#">Men's</a></li>
-                            <li><a href="#">Women's</a></li>
-                            <li><a href="#">Kid's</a></li>
+                            <li><a href="{{route('clothes')}}">clothes</a></li>
+                            <li><a href="{{route('bags')}}">bags</a></li>
+                            <li><a href="{{route('shoes')}}">shoes</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('cart')}}">Cart</a></li>
                     <li><a href="{{route('contact')}}">Contact</a></li>
                     <li><a href="#">Pages</a>
                         <ul class="dropdown">

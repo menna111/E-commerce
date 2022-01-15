@@ -16,4 +16,8 @@ class CartController extends Controller
 
        return $this->returnData('all in cart',$cart,200);
     }
+
+    public function add(){
+
+    }
 }
