@@ -1,6 +1,4 @@
-@extends('admin.layouts.admin-dashboard')
-@section('title','category')
-@section('content')
+
     <div class="card">
         <div class="card-header">
             <h1>Edit sub Category</h1>
@@ -38,7 +36,7 @@
                     </div>
 
                     <div class="col-md-12 m-3">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Updatet</button>
                     </div>
 
 
@@ -49,7 +47,7 @@
         </div>
     </div>
 
-@endsection
+
 @section('script')
     <script>
         $('#edit').submit(function (e) {
