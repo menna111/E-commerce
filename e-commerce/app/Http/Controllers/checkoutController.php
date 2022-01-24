@@ -73,6 +73,7 @@ class checkoutController extends Controller
                     'product_name' => $product->product_name,
                     'qty' => $product->product_qty,
                     'price' => $product->product_price,
+
                 ]);
                 $prod=product::whereId($product->product_id)->first();
                 $prod->qty=$prod->qty - $product->product_qty;
@@ -82,22 +83,23 @@ class checkoutController extends Controller
             Cart::destroy($products);
             //////
             ///
-            $user=Auth::user();
-            $data=[
-                'CustomerName'       => $user->name,
-                'NotificationOption' => 'Lnk', //'SMS', 'EML', or 'ALL'
-                'InvoiceValue'       => '50'  , //total price to pay
-                'CustomerMobile'     => $client->phone,
-                'CustomerEmail'      => $user->email,
-                'CallBackUrl'        => 'www.google.com',
-                'ErrorUrl'           => 'www.youtube.com',
-                'Language'           => 'en',
-                'DisplayCurrencyIso' => 'KWD',
-            ];
+//            $user=Auth::user();
+//            $data=[
+//                'CustomerName'       => $user->name,
+//                'NotificationOption' => 'Lnk', //'SMS', 'EML', or 'ALL'
+//                'InvoiceValue'       => '50'  , //total price to pay
+//                'CustomerMobile'     => $client->phone,
+//                'CustomerEmail'      => $user->email,
+//                'CallBackUrl'        => 'www.google.com',
+//                'ErrorUrl'           => 'www.youtube.com',
+//                'Language'           => 'en',
+//                'DisplayCurrencyIso' => 'KWD',
+//            ];
 
 
             DB::commit();
-            return $this->fatoorahServices->sendPayment($data);
+//            return $this->fatoorahServices->sendPayment($data);
+            return $this->returnSuccess('order added successfully',200);
            }catch (\Exception $exception){
             DB::rollBack();
 //            return  $this->returnError($exception->getMessage(),500);

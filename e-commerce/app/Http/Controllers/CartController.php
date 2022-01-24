@@ -30,22 +30,22 @@ class CartController extends Controller
 
         $product=Cart::where('product_id',$product_id);
 
-       if ($product){
-           try {
-//        $c_product=Cart::select('product_price')->where('product_id',$product_id)->get();
-               $c_product = DB::table('carts')->where('product_id', $product_id)->first();
-               $product_price = $c_product->product_price;
-//            dd($product_price);
-               $product->product_qty += $request['product_qty'];      //error
-               $product->total = $request['product_qty'] * $product_price;
-               $product->update();                                    //error
-               return $this->returnSuccess('added successfully',201);
-           }catch (Exception $exception){
-//               return $exception->getMessage();
-                return $this->returnError('some thing wrong',500);
-           }
-
-        }
+//       if ($product){
+//           try {
+////        $c_product=Cart::select('product_price')->where('product_id',$product_id)->get();
+//               $c_product = DB::table('carts')->where('product_id', $product_id)->first();
+//               $product_price = $c_product->product_price;
+////            dd($product_price);
+//               $product->product_qty += $request['product_qty'];      //error
+//               $product->total = $request['product_qty'] * $product_price;
+//               $product->update();                                    //error
+//               return $this->returnSuccess('added successfully',201);
+//           }catch (Exception $exception){
+////               return $exception->getMessage();
+//                return $this->returnError('some thing wrong',500);
+//           }
+//
+//        }
        if($product= product::where('id',$product_id)->first()) {
            try{
 

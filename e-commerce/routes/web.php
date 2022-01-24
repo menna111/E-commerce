@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\checkoutController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\shopController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\FrontendController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -111,10 +110,6 @@ Route::middleware('auth')->group(function (){
 
  });
 
-
-
-//shop
-Route::get('/shop',[ShopController::class,'index'])->name('shop');
 
 
 

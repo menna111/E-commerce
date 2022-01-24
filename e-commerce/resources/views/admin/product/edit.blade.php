@@ -1,15 +1,4 @@
-@extends('admin.layouts.admin-dashboard')
-@section('title','product')
-<style>
-    .form-select{
-        width: 100%;
-        height: auto;
-        padding: 3px;
-        color: #212529;
-        background-color: #fff;
-    }
-</style>
-@section('content')
+
     <div class="card">
         <div class="card-header">
             <h1>Edit Product</h1>
@@ -89,7 +78,7 @@
                     </div>
 
                     <div class="col-md-12 m-3">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
 
 
@@ -100,4 +89,3 @@
         </div>
     </div>
 
-@endsection

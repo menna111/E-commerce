@@ -31,3 +31,5 @@ Route::middleware('token.auth')->group(function(){
 Route::get('/cart',[CartController::class,'index'])->name('cart');
 Route::Post('/add',[CartController::class,'add'])->name('cart.add');
 });
+
+

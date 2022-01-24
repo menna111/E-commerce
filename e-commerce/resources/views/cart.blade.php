@@ -9,7 +9,6 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
                         <a href="{{route('home')}}"><i class="fa fa-home"></i> Home</a>
-                        <a href="{{route('shop')}}">Shop</a>
                         <span>Shopping Cart</span>
                     </div>
                 </div>
@@ -18,6 +17,7 @@
     </div>
     <!-- Breadcrumb Section Begin -->
 
+    <!-- Shopping Cart Section Begin -->
     <!-- Shopping Cart Section Begin -->
     <section class="shopping-cart spad shadow">
         <div class="container">
@@ -62,7 +62,7 @@
                                         <button onclick="increse({{$prod->product->qty}}, {{$prod->id}});"  class="input-group-text increment-btn">+</button>
                                     </div>
                                     </td>
-                                    <td class="total-price first-row">$60.00</td>
+                                    <td class="total-price first-row">${{$prod->total}}</td>
                                     <td class="close-td first-row"><i onclick="delete_product({{$prod->id}});" class="ti-close"></i></td>
                                 </tr>
                                 @php $total +=$prod->product->after_sale * $prod->product_qty    @endphp
@@ -71,23 +71,14 @@
                             <p style="color: red;">you havenot any product yet</p>
                                 </td>
                             @endforelse
+                            <input hidden value="{{$total}}" name="total" />
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
 
                         <div class="col-lg-4">
-                            <div class="cart-buttons">
-                                <a href="#" class="primary-btn continue-shop">Continue shopping</a>
-                                <a href="#" class="primary-btn up-cart">Update cart</a>
-                            </div>
-                            <div class="discount-coupon">
-                                <h6>Discount Codes</h6>
-                                <form action="#" class="coupon-form">
-                                    <input type="text" placeholder="Enter your codes">
-                                    <button type="submit" class="site-btn coupon-btn">Apply</button>
-                                </form>
-                            </div>
+
                         </div>
                         <div class="col-lg-4 offset-lg-4">
                             <div class="proceed-checkout">
@@ -167,7 +158,7 @@
                     if(response.status == true){
                         Swal.fire({
                             icon: 'success',
-                            title: 'تم بنجاح',
+                            title: 'success',
                             text: response.msg,
                         })
                     }else{
