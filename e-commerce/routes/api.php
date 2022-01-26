@@ -32,4 +32,8 @@ Route::get('/cart',[CartController::class,'index'])->name('cart');
 Route::Post('/add',[CartController::class,'add'])->name('cart.add');
 });
 
+Route::get('/categories',[\App\Http\Controllers\Api\HomeController::class,'categories']);
+Route::get('/subcategories',[\App\Http\Controllers\Api\HomeController::class,'subcategories']);
+Route::get('/products',[\App\Http\Controllers\Api\HomeController::class,'products']);
+
 

@@ -11,6 +11,21 @@
 
     </ul>
 
+{{--    //localization//--}}
+
+    <select class="btn language_drop" name="countries" id="countries" style="width:100px;">
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+            <option rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                {{ $properties['native'] }}
+
+            </option>
+
+
+        @endforeach
+    </select>
+
+{{--    //end of localization //--}}
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto" style="    margin-right: 7rem;">
         <!-- Navbar Search -->

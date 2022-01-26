@@ -59,10 +59,7 @@
 
 
                         @endforeach
-                            {{--                        <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"--}}
-                            {{--                                data-title="English">English</option>--}}
-{{--                        <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"--}}
-{{--                                data-title="Bangladesh">German </option>--}}
+
                     </select>
                 </div>
                 <div class="top-social">
