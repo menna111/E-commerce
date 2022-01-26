@@ -51,10 +51,18 @@
 
                 <div class="lan-selector">
                     <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                        <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
-                                data-title="English">English</option>
-                        <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
-                                data-title="Bangladesh">German </option>
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <option rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+
+                            </option>
+
+
+                        @endforeach
+                            {{--                        <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"--}}
+                            {{--                                data-title="English">English</option>--}}
+{{--                        <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"--}}
+{{--                                data-title="Bangladesh">German </option>--}}
                     </select>
                 </div>
                 <div class="top-social">

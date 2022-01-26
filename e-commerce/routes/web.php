@@ -30,9 +30,19 @@ use App\Http\Controllers\Admin\subcategoryController;
 Route::get('/test',[TestController::class,'test']);  //seeder
 //Route::get('/',[HomeController::class,'index']);
 
-Auth::routes();
 
-//user view
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){                                                  //localization
+
+    Auth::routes();
+
+    //user view
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/show/{id}',[HomeController::class,'showcategory'])->name('category.show');
 Route::get('/product/show/{id}',[HomeController::class,'showproduct'])->name('product.show');
@@ -133,3 +143,4 @@ Route::get('error',function (){
 });
 
 
+}); //end of localization
