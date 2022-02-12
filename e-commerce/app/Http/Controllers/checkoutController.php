@@ -6,6 +6,7 @@ use App\Http\Services\FatoorahServices;
 use App\Models\Cart;
 use App\Models\client;
 use App\Models\order;
+use App\Models\order_item;
 use App\Models\product;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class checkoutController extends Controller
 
         DB::beginTransaction();
         try{
-            $client=  client::create([
+            $order= order::create([
                 'user_id' => Auth::id(),
                 'fname' => $request['fname'],
                 'lname'  => $request['lname'],
@@ -64,11 +65,13 @@ class checkoutController extends Controller
                 'streetadress2'  => $request['streetadress2'],
                 'postcode'  => $request['postcode'],
                 'phone' =>$request['phone'],
+                'total' =>$request['total'],
+
             ]);
             $products=Cart::where('user_id',Auth::id())->get();
             foreach ($products as $product) {
-                order::create([
-                    'client_id' => $client->id,
+                order_item::create([
+                    'client_id' => $order->id,
                     'product_id' => $product->product_id,
                     'product_name' => $product->product_name,
                     'qty' => $product->product_qty,
@@ -102,7 +105,7 @@ class checkoutController extends Controller
             return $this->returnSuccess('order added successfully',200);
            }catch (\Exception $exception){
             DB::rollBack();
-//            return  $this->returnError($exception->getMessage(),500);
+            return  $this->returnError($exception->getMessage(),500);
             return  $this->returnError('حدث خطأ ما برجاء المحاولة لاحقا',500);
 
         }

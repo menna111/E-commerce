@@ -1,10 +1,7 @@
 @include('partials.header')
 
 <body>
-<!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
+
 
 <!-- Header Section Begin -->
 <header class="header-section">
@@ -20,16 +17,21 @@
                     +65 11.188.888
                 </div>
             </div>
+
             @guest
             <div class="ht-right">
                 <a href="{{ route('login') }}" class="login-panel"><i class="fa fa-user"></i>Login</a>
                 <div class="lan-selector">
-                    <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                        <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
-                                data-title="English">English</option>
-                        <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
-                                data-title="Bangladesh">German </option>
-                    </select>
+                    {{--                    localization--}}
+                    <ul class="">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li>
+                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
@@ -50,17 +52,18 @@
 
 
                 <div class="lan-selector">
-                    <select class="language_drop" name="countries" id="countries" style="width:300px;">
+                    {{--                    localization--}}
+
+
+                    <ul style="list-style-type: none;">
                         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            <option rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                {{ $properties['native'] }}
-
-                            </option>
-
-
+                            <li >
+                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                            </li>
                         @endforeach
-
-                    </select>
+                    </ul>
                 </div>
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>

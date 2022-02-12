@@ -9,11 +9,11 @@ class order extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'client_id','product_id','product_name','qty','price',
+        'user_id','fname','lname','country','town','streetadress1','streetadress2','postcode','phone','total'
     ];
 
-    function client(){
-        return $this->belongsTo(client::class);
+    function user(){
+        return $this->belongsTo(User::class);
     }
     function product(){
         return $this->belongsTo(product::class);

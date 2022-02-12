@@ -14,7 +14,7 @@
                     </ul>
                 </div>
             @endif
-            <form id="add" method="POST" enctype="multipart/form-data">
+            <form id="add" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="">Name</label>
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-@section('script')
+
     <script>
         $.ajaxSetup({
             headers:{
@@ -65,14 +65,14 @@
                     if(response.status == true){
                         Swal.fire({
                             icon: 'success',
-                            title: 'تم بنجاح',
+                            title: 'success',
                             text: response.msg,
                         })
                     }else{
                         console.log(response.msg);
                         Swal.fire({
                             icon: 'error',
-                            title: 'خطا',
+                            title: 'error',
                             text: response.msg,
                         })
                     }
@@ -81,4 +81,4 @@
             })
         })
     </script>
-@endsection
+

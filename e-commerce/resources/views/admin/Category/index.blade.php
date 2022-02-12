@@ -84,20 +84,21 @@
                url: `{{route('category.add')}}`,
                success:function (response){
                    $('#content').html(response)
-               }
 
-           } )
+
+           }
+           })
        });
 
-       function editCategory(id){
+       function editCategory(id) {
            $.ajax({
                type: "GET",
                url: `{{url('/category/edit')}}/${id}`,
-               success:function (response){
+               success: function (response) {
                    $('#content').html(response)
                }
 
-           } )
+           })
        }
 
    </script>

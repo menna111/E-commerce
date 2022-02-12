@@ -67,5 +67,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function carts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Cart::class, 'user_id');
+    }
 }
 

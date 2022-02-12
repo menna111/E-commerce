@@ -11,7 +11,13 @@ class Cart extends Model
     protected $fillable=[
         'user_id','product_id','product_name','product_qty','image','product_price','total'
     ];
-    public function product(){
+    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(product::class,'product_id');
+    }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 }

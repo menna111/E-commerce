@@ -1,5 +1,7 @@
+<?php
 
+return [
 
+    'dashboard' => 'لوحة التحكم',
 
-
-"dashboard" => 'لوحة القيادة'
+];

@@ -85,14 +85,19 @@
                                     <th>Product</th>
                                     <th>quantity</th>
                                     <th>Price</th>
+                                    <th>Total</th>
+
 
                                     </thead>
                                     <tbody>
+                                    @php $total=0; @endphp
                                     @forelse($products as $product)
                                         <tr>
                                              <td class="fw-normal">{{$product->product_name}} </td>
                                              <td class="fw-normal">{{$product->product_qty}} </td>
                                              <td class="fw-normal">{{$product->product_price}} </td>
+                                            <td class="fw-normal">{{$product->total}} </td>
+
 
                                             <input hidden name="product_id" value="{{$product->id}}">
                                             <input hidden name="product_name" value="{{$product->product_name}}">
@@ -100,6 +105,8 @@
                                             <input hidden name="price" value="{{$product->product_price}}">
 
                                         </tr>
+                                        @php $total +=$product->total  @endphp
+
                                     @empty
                                         <td class="fw-normal"><p style="color: red" ;>you have no thing to checkout</p></td>
                                     @endforelse
@@ -120,6 +127,10 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
+                                   <div class="pc-item m-4">
+                                       <h3> Big Total=${{$total}}</h3>
+                                       <input type="hidden" value="{{$total}}" name="total">
+                                   </div>
                                 </div>
                                 <div class="order-btn">
                                     <button type="submit" class="site-btn place-btn">Place Order</button>

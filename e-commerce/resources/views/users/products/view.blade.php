@@ -1,6 +1,6 @@
-@extends('users.layouts.app')
-@section('title','view product')
-@section('content')
+{{--@extends('users.layouts.app')--}}
+{{--@section('title','view product')--}}
+{{--@section('content')--}}
     <div class="bg-warning py-3 mb-4 shadow-sm border-top">
         <div class="container">
             <h6>collection / {{$product->category->name}} / {{$product->name}}</h6>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h2 class="card-title">{{$product->name}}</h2>
+                        <h5 id="prod_name" class="card-title">{{$product->name}}</h5>
                         <hr>
                         <label class="me-3">Original Price :<s> {{$product->original_price}}</s></label> &nbsp; &nbsp; &nbsp;
                         <label><b>Price on sale : $</b></label>
@@ -29,7 +29,7 @@
                             <label class="badge bg-danger">Out Of Stock</label>
                         @endif
                         <div class="row mt-2">
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <label>Quantity</label>
                             <div class="input-group text-center mb-3">
                                 <button onclick="decrese();" class="input-group-text decrement-btn">-</button>
@@ -38,7 +38,9 @@
                             </div>
 
                             </div>
-                            <div style="margin-top: 35px;" class="col-md-9 ">
+                        </div>
+                        <div class="row">
+                            <div style="margin-top: 35px;" class="col-md-12 ">
                                 <form  class="d-inline">
                                     @csrf
                                     <input type="hidden" id="prod_id" value="{{$product->id}}">
@@ -46,7 +48,7 @@
                                     <button type="submit" id="add_cart" class="btn btn-warning "> <a style="color: white;" href=""> <i class="fa fa-shopping-cart"></i> <b>add to cart</b></a> </button>
                                     @endif
                                 </form>
-                                <button  class="btn btn-success"> <a style="color: white;" href=""> <i class="fa fa-heart"></i> <b>add to favourite</b></a> </button>
+{{--                                <button  class="btn btn-success"> <a style="color: white;" href=""> <i class="fa fa-heart"></i> <b>add to favourite</b></a> </button>--}}
 
                             </div>
                         </div>
@@ -56,8 +58,8 @@
         </div>
     </div>
 
-@endsection
-@section('script')
+{{--@endsection--}}
+{{--@section('script')--}}
     <script>
 
         $.ajaxSetup({
@@ -84,11 +86,12 @@
         $('#add_cart').click(function (e) {
             e.preventDefault();
 
-            var product_name=$('h2').text();
+            var product_name=$('#prod_name').text();
             var product_id=$('#prod_id').val();
             var qty=$('#qty_val').val();
             var image=$('#img').attr('src');
             var product_price=$('#product_price').text();   //label value
+            console.log(product_id,product_name,qty,product_price)
                 // alert(image);
 
             $.ajax({
@@ -98,11 +101,12 @@
                     'product_id' : product_id ,
                     'product_name' :product_name,
                     'product_qty' : qty,
-                    'product_image' :image,
+                    'image' :image,
                     'product_price' :product_price
 
                 },
                 success: function(response) {
+                    console.log(response)
                     if(response.status == true){
                         Swal.fire({
                             icon: 'success',
@@ -124,4 +128,4 @@
 
 
     </script>
-@endsection
+{{--@endsection--}}

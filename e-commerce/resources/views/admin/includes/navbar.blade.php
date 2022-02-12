@@ -13,16 +13,16 @@
 
 {{--    //localization//--}}
 
-    <select class="btn language_drop" name="countries" id="countries" style="width:100px;">
+    <ul class="">
         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            <option rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                {{ $properties['native'] }}
-
-            </option>
-
-
+            <li>
+                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a>
+            </li>
         @endforeach
-    </select>
+    </ul>
+
 
 {{--    //end of localization //--}}
 

@@ -5,14 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubCategory extends Model
+class order_item extends Model
 {
     use HasFactory;
     protected $fillable=[
-       'name','description','image'
-
+        'order_id','product_id','qty','product_name','price'
     ];
-    public function products(){
-        return  $this->hasMany(product::class, 'sub_category_id');
-    }
 }

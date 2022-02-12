@@ -44,14 +44,7 @@
                                         <h5>{{$prod->product_name}}</h5>
                                     </td>
                                     <td class="p-price first-row">$ {{$prod->product_price}}</td>
-{{--                                    <td class="qua-col first-row">--}}
-{{--                                        <div class="quantity">--}}
-{{--                                            <div class="pro-qty">--}}
-{{--                                                <input hidden id="product_id" type="text" value="{{$prod->id}}">--}}
 
-{{--                                                <input id="qty" type="text" value="{{$prod->product_qty}}">--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
                                     <td class="qua-col first-row">
                                     <div class="input-group text-center mb-3">
                                         <input type="hidden" value="{{$prod->product_price}}" class="p_price">
@@ -65,13 +58,12 @@
                                     <td class="total-price first-row">${{$prod->total}}</td>
                                     <td class="close-td first-row"><i onclick="delete_product({{$prod->id}});" class="ti-close"></i></td>
                                 </tr>
-                                @php $total +=$prod->product->after_sale * $prod->product_qty    @endphp
+                                @php $total +=$prod->product->after_sale * $prod->product_qty @endphp
                             @empty
                                 <td>
                             <p style="color: red;">you havenot any product yet</p>
                                 </td>
                             @endforelse
-                            <input hidden value="{{$total}}" name="total" />
                             </tbody>
                         </table>
                     </div>
@@ -139,77 +131,97 @@
         function increse(qty, id){
             var p_price=$('.p_price').val();
             var value=$('.qty-input_' + id).val();   // input value
-            if(value < 10 && value< qty)
+            if(value < 10 && value< qty) {
                 value ++;
-            $('.qty-input_' + id).val(value);
+                console.log('.qty-input_' + id)
+                $('.qty-input_' + id).val(value);
+                data= {
+                    'id': id,
+                    'p_qty': value,
+                    'p_price' : p_price,
+                }
+                $.ajax({
+                    method: 'POST',
+                    url:"{{route('cart.update')}}",
+                    data:data,
+                    success: function(response) {
+                        console.log(response)
+                        if(response.status == true){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'success',
+                                text: response.msg,
+                            })
+                        }else{
+                            // alert(response.msg);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'خطا',
+                                text: response.msg,
+                            })
+                        }
 
-
-            data= {
-                'id': id,
-                'p_qty': value,
-                'p_price' : p_price,
-            }
-            $.ajax({
-                method: 'POST',
-                url:"{{route('cart.update')}}",
-                data:data,
-                success: function(response) {
-                    console.log(response)
-                    if(response.status == true){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'success',
-                            text: response.msg,
-                        })
-                    }else{
-                        // alert(response.msg);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'خطا',
-                            text: response.msg,
-                        })
                     }
 
-                }
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطا',
+                    text: "quantity can't be grater than 10",
+                })
+            }
 
-            })
+
+
 
         }
 
         function decrese(id){
+            var p_price=$('.p_price').val();
             var dec_value=$('.qty-input_' + id).val();
-            if(dec_value > 1 )
-                dec_value -- ;
-            $('.qty-input_' + id).val(dec_value);
+            if(dec_value > 1 ) {
+                dec_value --;
+                console.log(dec_value)
+                $('.qty-input_' + id).val(dec_value);
 
 
-            data= {
-                'id': id,
-                'p_qty': dec_value,
-            }
-            $.ajax({
-                method: 'POST',
-                url:"{{route('cart.update')}}",
-                data:data,
-                success: function(response) {
-                    if(response.status == true){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'تم بنجاح',
-                            text: response.msg,
-                        })
-                    }else{
-                        // alert(response.msg);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'error',
-                            text: response.msg,
-                        })
+                data= {
+                    'id': id,
+                    'p_qty': dec_value,
+                    'p_price' : p_price,
+                }
+                $.ajax({
+                    method: 'POST',
+                    url:"{{route('cart.update')}}",
+                    data:data,
+                    success: function(response) {
+                        if(response.status == true){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'تم بنجاح',
+                                text: response.msg,
+                            })
+                        }else{
+                            // alert(response.msg);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'error',
+                                text: response.msg,
+                            })
+                        }
+
                     }
 
-                }
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطا',
+                    text: "quantity can't be less  than 1",
+                })
+            }
 
-            })
         }
 
         $.ajaxSetup({

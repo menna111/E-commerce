@@ -61,12 +61,12 @@ class CategoryController extends Controller
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
-//            dd($exception->getMessage());
+            dd($exception->getMessage());
             return  redirect()->back()->with('error', 'something wrong happened');
 
         }
 
-        return  redirect('/category')->with('status','Category Added successfully');
+        return $this->returnSuccess('added successfully',200);
     }
 
 

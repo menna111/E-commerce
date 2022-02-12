@@ -25,7 +25,6 @@ class subcategoryController extends Controller
 
 
     public function store(Request $request){
-
         //validation
         $request->validate(
             [
@@ -49,10 +48,12 @@ class subcategoryController extends Controller
 
 
             ]);
+//            dd('lll');
+
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
-//            dd($exception->getMessage());
+            dd($exception->getMessage());
             return  redirect()->back()->with('error', 'something wrong happened');
 
         }

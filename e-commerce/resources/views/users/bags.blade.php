@@ -16,7 +16,11 @@
                             </div>
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="{{route('product.show',$product->id)}}">+ View Product</a></li>
+                                <li class="quick-view">
+                                    <button  class="btn" data-bs-toggle="modal" data-bs-target="#viewproduct"  onclick="view({{$product->id}})">
+                                        + View Product
+                                    </button></li>
+
                             </ul>
                         </div>
                         <div class="pi-text">
@@ -42,17 +46,53 @@
                 @endforelse
 
             </div>
+
         </div>
-
-
 
 
 
 
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="viewproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 @endsection
 
 
 
+@section('script')
+
+    <script>
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        function view(id){
+            $.ajax({
+                type: "GET",
+                url: `{{url('/product/show')}}/${id}`,
+                success:function (response){
+                    $('#content').html(response)
+                }
+
+            } )
+        }
+    </script>
+@endsection
