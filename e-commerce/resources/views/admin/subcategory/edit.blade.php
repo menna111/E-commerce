@@ -14,7 +14,7 @@
                     </ul>
                 </div>
             @endif
-            <form id="edit"  method="POST" enctype="multipart/form-data">
+            <form id="edit"  enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="col-md-12 m-3">
-                        <button type="submit" class="btn btn-primary">Updatet</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
 
 
@@ -48,7 +48,6 @@
     </div>
 
 
-@section('script')
     <script>
         $('#edit').submit(function (e) {
             e.preventDefault()
@@ -63,16 +62,16 @@
                     if (response.status == true) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'تم بنجاح!',
+                            title: 'success',
                             text: response.msg,
 
                         })
-
+                        window.location.reload()
 
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: 'خطأ',
+                            title: 'error',
                             text: response.msg,
                         })
                     }
@@ -80,4 +79,3 @@
             });
         })
     </script>
-@endsection

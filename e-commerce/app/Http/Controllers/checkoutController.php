@@ -32,26 +32,24 @@ class checkoutController extends Controller
 
     public function placeOrder(Request $request){
         //validation
-        $validator=Validator::make($request->all(),[
+        $request->validate([
             'fname'        => 'required|string|min:3|max:255',
             'lname'        => 'required|string|min:3|max:255',
             'country'        => 'required|string|min:3|max:255',
             'town'        => 'required|string|min:3|max:255',
             'streetadress1'        => 'required|string|min:3|max:255',
-            'streetadress2'        => 'required|string|min:3|max:255',
+            'streetadress2'        => 'string|min:3|max:255',
             'product_name'        => 'required|string|min:3|max:255',
             'postcode'      => 'required|numeric',
             'phone'      => 'required|numeric',
             'qty'      => 'required|numeric',
             'price'      => 'required|numeric',
 
-        ]);
-
-        if ($validator->fails()){
-            return $this->returnError($validator->errors()->all(),400);
-        }
-
-
+        ],
+            [
+                'fname.required' => 'A title is required',
+                'lname.required' => 'A message is required',
+            ]);
 
         DB::beginTransaction();
         try{
@@ -71,7 +69,7 @@ class checkoutController extends Controller
             $products=Cart::where('user_id',Auth::id())->get();
             foreach ($products as $product) {
                 order_item::create([
-                    'client_id' => $order->id,
+                    'order_id' => $order->id,
                     'product_id' => $product->product_id,
                     'product_name' => $product->product_name,
                     'qty' => $product->product_qty,
@@ -102,9 +100,10 @@ class checkoutController extends Controller
 
             DB::commit();
 //            return $this->fatoorahServices->sendPayment($data);
-            return $this->returnSuccess('order added successfully',200);
+            return view('payment',compact('order'));
            }catch (\Exception $exception){
             DB::rollBack();
+            return redirect()->back()->with('error', $exception->getMessage());
             return  $this->returnError($exception->getMessage(),500);
             return  $this->returnError('حدث خطأ ما برجاء المحاولة لاحقا',500);
 

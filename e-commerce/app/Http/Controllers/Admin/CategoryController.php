@@ -62,7 +62,7 @@ class CategoryController extends Controller
         }catch (\Exception $exception){
             DB::rollBack();
             dd($exception->getMessage());
-            return  redirect()->back()->with('error', 'something wrong happened');
+            return $this->returnError('some thing wrong',400);
 
         }
 
@@ -110,7 +110,7 @@ class CategoryController extends Controller
             DB::rollBack();
 //            dd($exception->getMessage());
         }
-        return redirect()->back()->with('success','updated successfully ');
+        return $this->returnSuccess('updated successfully',201);
 
     }
 

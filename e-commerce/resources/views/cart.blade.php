@@ -152,11 +152,13 @@
                                 title: 'success',
                                 text: response.msg,
                             })
+                            window.location.reload()
+
                         }else{
                             // alert(response.msg);
                             Swal.fire({
                                 icon: 'error',
-                                title: 'خطا',
+                                title: 'error',
                                 text: response.msg,
                             })
                         }
@@ -199,9 +201,11 @@
                         if(response.status == true){
                             Swal.fire({
                                 icon: 'success',
-                                title: 'تم بنجاح',
+                                title: 'success',
                                 text: response.msg,
                             })
+                            window.location.reload()
+
                         }else{
                             // alert(response.msg);
                             Swal.fire({
@@ -217,7 +221,7 @@
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'خطا',
+                    title: 'error',
                     text: "quantity can't be less  than 1",
                 })
             }
@@ -240,14 +244,16 @@
                     if(response.status == true){
                         Swal.fire({
                             icon: 'success',
-                            title: 'تم بنجاح',
+                            title: 'success',
                             text: response.msg,
                         })
+                        window.location.reload()
+
                     }else{
                         // alert(response.msg);
                         Swal.fire({
                             icon: 'error',
-                            title: 'خطا',
+                            title: 'error',
                             text: response.msg,
                         })
                     }

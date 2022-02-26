@@ -7,12 +7,13 @@ use App\Models\Category;
 use App\Models\product;
 use App\Models\SubCategory;
 use App\Traits\ImageUpload;
+use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    use ImageUpload;
+    use ImageUpload,ResponseTrait;
 
     public function index(){
         $products=product::all();
@@ -65,10 +66,10 @@ class ProductController extends Controller
         }catch (\Exception $exception){
             DB::rollBack();
             dd($exception->getMessage());
-            return  redirect()->back()->with('error', 'something wrong happened');
+            return  $this->returnError('error',400);
 
         }
-        return  redirect('/product')->with('status','Product Added successfully');
+        return  $this->returnSuccess('Product Added successfully',200);
 
     }
 
@@ -121,10 +122,10 @@ class ProductController extends Controller
         }catch (\Exception $exception){
             DB::rollBack();
 //            dd($exception->getMessage());
-            return  redirect()->back()->with('error', 'something wrong happened');
+            return  $this->returnError('error',400);
 
         }
-        return  redirect('/product')->with('status','Product updated successfully');
+        return  $this->returnSuccess('Product updated successfully',201);
     }
 
 

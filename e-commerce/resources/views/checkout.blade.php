@@ -21,7 +21,7 @@
     <!-- Shopping Cart Section Begin -->
     <section class="checkout-section spad ">
         <div class="container">
-            <form id="checkout"  class="checkout-form">
+            <form id="checkout"  class="checkout-form" action="{{route('placeorder')}}">
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -29,11 +29,11 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="fir">First Name<span>*</span></label>
-                                <input type="text" id="fir" name="fname">
+                                <input type="text" id="fir" name="fname" required>
                             </div>
                             <div class="col-lg-6">
                                 <label for="last">Last Name<span>*</span></label>
-                                <input type="text" id="last" name="lname">
+                                <input type="text" id="last" name="lname" required>
                             </div>
 {{--                            <div class="col-lg-12">--}}
 {{--                                <label for="cun-name">Company Name</label>--}}
@@ -41,28 +41,28 @@
 {{--                            </div>--}}
                             <div class="col-lg-12">
                                 <label for="cun">Country<span>*</span></label>
-                                <input type="text" id="cun" name="country">
+                                <input type="text" id="cun" name="country" required>
                             </div>
                             <div class="col-lg-12">
                                 <label for="street">Street Address<span>*</span></label>
-                                <input type="text" id="street" class="street-first" name="streetadress1">
+                                <input type="text" id="street" class="street-first" name="streetadress1" required>
                                 <input type="text" name="streetadress2">
                             </div>
                             <div class="col-lg-12">
                                 <label for="zip">Postcode / ZIP (optional)</label>
-                                <input type="text" id="zip" name="postcode">
+                                <input type="text" id="zip" name="postcode" required>
                             </div>
                             <div class="col-lg-12">
                                 <label for="town">Town / City<span>*</span></label>
-                                <input type="text" id="town" name="town">
+                                <input type="text" id="town" name="town" required>
                             </div>
                             <div class="col-lg-6">
                                 <label for="email">Email Address<span>*</span></label>
-                                <input type="text" id="email" name="email">
+                                <input type="text" id="email" name="email" required>
                             </div>
                             <div class="col-lg-6">
                                 <label for="phone">Phone<span>*</span></label>
-                                <input type="text" id="phone" name="phone">
+                                <input type="text" id="phone" name="phone" required>
                             </div>
                             <div class="col-lg-12">
                                 <div class="create-item">
@@ -112,30 +112,26 @@
                                     @endforelse
                                     </tbody>
                                 </table>
-                                <div class="payment-check">
-                                    <div class="pc-item">
-                                        <label for="pc-check">
-                                            Cheque Payment
-                                            <input type="checkbox" id="pc-check">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="pc-item">
-                                        <label for="pc-paypal">
-                                            Paypal
-                                            <input type="checkbox" id="pc-paypal">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
+
+
                                    <div class="pc-item m-4">
                                        <h3> Big Total=${{$total}}</h3>
                                        <input type="hidden" value="{{$total}}" name="total">
                                    </div>
                                 </div>
-                                <div class="order-btn">
+                                <div class="order-btn m-4" style="text-align: center;">
                                     <button type="submit" class="site-btn place-btn">Place Order</button>
                                 </div>
+
+{{--                            //paypal button--}}
+                            <div id="smart-button-container">
+                                <div style="text-align: center;">
+                                    <div id="paypal-button-container"></div>
+                                </div>
                             </div>
+{{--                                  // End of paypal button--}}
+
+
                         </div>
                     </div>
                 </div>
@@ -188,37 +184,86 @@
             }
         });
 
-        $('#checkout').submit(function (e){
-            e.preventDefault();
+        {{--$('#checkout').submit(function (e){--}}
+        {{--    e.preventDefault();--}}
 
-            var formData = new FormData(this);
-            $.ajax({
-                method:"POST",
-                url:"{{ route('placeorder') }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if(response.status == true){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'تم بنجاح',
-                            text: response.msg,
-                        })
-                    }else{
-                        console.log(response.msg);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'خطا',
-                            text: response.msg,
-                        })
-                    }
+        {{--    var formData = new FormData(this);--}}
+        {{--    $.ajax({--}}
+        {{--        method:"POST",--}}
+        {{--        url:"{{ route('placeorder') }}",--}}
+        {{--        data: formData,--}}
+        {{--        contentType: false,--}}
+        {{--        processData: false,--}}
+        {{--        success: function(response) {--}}
+        {{--            if(response.status == true){--}}
+        {{--                Swal.fire({--}}
+        {{--                    icon: 'success',--}}
+        {{--                    title: 'success',--}}
+        {{--                    text: response.msg,--}}
+        {{--                })--}}
+        {{--                window.location.reload()--}}
 
-                }
-            })
-        })
+        {{--            }else{--}}
+        {{--                console.log(response.msg);--}}
+        {{--                Swal.fire({--}}
+        {{--                    icon: 'error',--}}
+        {{--                    title: 'error',--}}
+        {{--                    text: response.msg,--}}
+        {{--                })--}}
+        {{--            }--}}
+
+        {{--        }--}}
+        {{--    })--}}
+        {{--})--}}
 
 
     </script>
+
+
+{{--    //////// paypal///////--}}
+    <script src="https://www.paypal.com/sdk/js?client-id=AeCMUl56NEzuimpX8-MIu6VAUvsALrR7lk0tuMA5JBq8Er4aZYpEpkqTu4gsUwE0kanCXran6G6S840R" data-sdk-integration-source="button-factory"></script>
+    <script>
+        function initPayPalButton() {
+            paypal.Buttons({
+                style: {
+                    shape: 'rect',
+                    color: 'gold',
+                    layout: 'vertical',
+                    label: 'paypal',
+
+                },
+
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+                    });
+                },
+
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(orderData) {
+
+                        // Full available details
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                        // Show a success message within this page, e.g.
+                        const element = document.getElementById('paypal-button-container');
+                        element.innerHTML = '';
+                        element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+
+                    });
+                },
+
+                onError: function(err) {
+                    console.log(err);
+                }
+            }).render('#paypal-button-container');
+        }
+        initPayPalButton();
+    </script>
+
+{{--        //////// End of paypal///////--}}
+
 
 @endsection

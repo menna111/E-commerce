@@ -15,7 +15,7 @@
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="w-icon active"><button onclick="add({{$product->id}})" class="btn"><i class="icon_bag_alt"></i></button></li>
                                 <li class="quick-view">
                                     <button  class="btn" data-bs-toggle="modal" data-bs-target="#viewproduct"  onclick="view({{$product->id}})">
                                         + View Product
@@ -31,10 +31,12 @@
                             <div class="product-price">
                                 @if($product->after_sale)
 
-                                    ${{$product->after_sale}}
+                                    <label id="price_after_sale" class="d-none">{{ $product->after_sale }}</label>
+                                    <label id="product_price">${{$product->after_sale}} </label>
                                     <span>${{$product->original_price}}</span>
 
                                 @else
+                                    <label id="price_after_sale" class="d-none">{{ $product->original_price }}</label>
                                     ${{$product->original_price}}
                                 @endif
                             </div>
@@ -93,6 +95,46 @@
                 }
 
             } )
+        }
+
+        function add(id){
+            var product_name=$('#prod_name').text();
+            var product_id=$('#prod_id').val();
+            var qty=$('#qty').val();
+            var image=$('#img').attr('src');
+            var product_price=$('#price_after_sale').text();   //label value
+
+            $.ajax({
+                method:"POST",
+                url:"{{ route('cart.add') }}",
+                data:{
+                    'product_id' : id ,
+                    'product_name' :product_name,
+                    'product_qty' : qty,
+                    'image' :image,
+                    'product_price' :product_price
+
+                },
+                success: function(response) {
+                    console.log(response)
+                    if(response.status == true){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'success',
+                            text: response.msg,
+                        })
+                        window.location.reload()
+                    }else{
+                        // alert(response.msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'error',
+                            text: response.msg,
+                        })
+                    }
+
+                }
+            })
         }
     </script>
 @endsection

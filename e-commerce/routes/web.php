@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function (){
     Route::prefix('checkout')->group(function () {
     Route::get('/',[CheckoutController::class,'index'])->name('checkout');
     Route::post('placeorder',[checkoutController::class,'placeOrder'])->name('placeorder');
+//        Route::post('placeorder',[\App\Http\Controllers\FatoorahController::class,'payOrder'])->name('placeorder');
+
+
     });
 });
 

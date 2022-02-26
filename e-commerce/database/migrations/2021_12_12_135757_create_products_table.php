@@ -22,18 +22,14 @@ class CreateProductsTable extends Migration
             $table->foreign('sub_category_id')->on('sub_categories')->references('id')->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->string('name');
-            $table->mediumText('small_description');
             $table->Text('description');
             $table->string('original_price');
             $table->string('after_sale');
             $table->string('image')->nullable();
             $table->string('qty');
             $table->string('tax');
-            $table->tinyInteger('status');
             $table->tinyInteger('trending');
-            $table->text('meta_title');
-            $table->text('meta_keywords');
-            $table->text('meta_description');
+
             $table->timestamps();
         });
     }

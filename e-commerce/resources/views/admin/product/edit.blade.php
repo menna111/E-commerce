@@ -14,7 +14,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('product.update',$product->id)}}" method="POST" enctype="multipart/form-data">
+            <form id="edit" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -89,3 +89,34 @@
         </div>
     </div>
 
+    <script>
+        $('#edit').submit(function (e) {
+            e.preventDefault()
+            var formData = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: `{{ route('category.update', $id) }}`,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: success',
+                            text: response.msg,
+
+                        })
+                        window.location.reload()
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'error',
+                            text: response.msg,
+                        })
+                    }
+                }
+            });
+        })
+    </script>

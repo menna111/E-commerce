@@ -23,7 +23,6 @@ class CartController extends Controller
     }
 
     public function add(Request $request){
-
         $product_id=$request['product_id'];
         $product=Cart::where('product_id',$product_id)->first();
 

@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
-                        <a href="./index.html">
+                        <a href="{{route('home')}}">
                             <img src="img/logo.png" alt="">
                         </a>
                     </div>
@@ -148,9 +148,16 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @php
+                                    $total= 0;
+                                        $cart=\App\Models\Cart::all('total');
+                                         foreach ($cart as $item){
+                                             $total += $item->total;
+                                         }
+                                    @endphp
                                 <div class="select-total">
                                     <span>total:</span>
-                                    <h5>$120.00</h5>
+                                    <h5>${{$total}}</h5>
                                 </div>
                                 <div class="select-button">
                                     <a href="{{route('cart')}}" class="primary-btn view-card">VIEW CARD</a>

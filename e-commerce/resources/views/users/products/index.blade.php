@@ -31,11 +31,13 @@
                             </a>
                             <div class="product-price">
                                 @if($product->after_sale)
-
+                                    <label id="price_after_sale" class="d-none">{{ $product->after_sale }}</label>
                                     ${{$product->after_sale}}
                                     <span name="product_price">${{$product->original_price}}</span>
 
                                 @else
+                                    <label id="price_after_sale" class="d-none">{{ $product->original_price }}</label>
+
                                     ${{$product->original_price}}
                                 @endif
                             </div>
@@ -102,7 +104,7 @@
             var product_id=$('#prod_id').val();
 
             var image=$('#img').attr('src');
-            var product_price=$('#product_price').text();   //label value
+            var product_price=$('#price_after_sale').text();   //label value
             // alert(image);
 
             $.ajax({
@@ -110,10 +112,11 @@
                 url:"{{ route('cart.add') }}",
                 data:{
                     'product_id' : product_id ,
+                    'product_id' : product_id ,
                     'product_name' :product_name,
                     'product_qty' : 1,
                     'image' :image,
-                    'product_price' :product_price
+                    'product_price' :1
 
                 },
                 success: function(response) {

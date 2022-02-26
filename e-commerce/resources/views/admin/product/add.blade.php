@@ -14,7 +14,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+            <form id="add" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -88,3 +88,42 @@
         </div>
     </div>
 
+    <script>
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#add').submit(function (e){
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            $.ajax({
+                method:"POST",
+                url:"{{ route('product.store') }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+
+                    if(response.status == true){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'success',
+                            text: response.msg,
+                        })
+                        window.location.reload();
+                    }else{
+                        console.log(response.msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'error',
+                            text: response.msg,
+                        })
+                    }
+
+                }
+            })
+        })
+    </script>

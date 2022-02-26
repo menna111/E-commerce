@@ -77,6 +77,7 @@
                             title: 'success',
                             text: response.msg,
                         })
+                        window.location.reload();
                     }else{
                         console.log(response.msg);
                         Swal.fire({

@@ -12,7 +12,7 @@ class TestController extends Controller
         for ($i = 1; $i < 30 ; $i++) {
             product::create([
                 'cate_id'=>1,
-                'sub_category_id'=> 12,
+                'sub_category_id'=> 1,
                 'name' => 'product number ' . $i,
                 'description' => 'description',
                 'original_price' =>1000,

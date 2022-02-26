@@ -94,7 +94,7 @@
         function editproduct(id){
             $.ajax({
                 type: "GET",
-                url: `{{url('/product/edit')}}/${id}`,
+                url: `{{url('/product/edit')}}/$id`,
                 success:function (response){
                     $('#content').html(response)
                 }

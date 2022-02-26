@@ -1,6 +1,4 @@
-{{--@extends('users.layouts.app')--}}
-{{--@section('title','view product')--}}
-{{--@section('content')--}}
+
     <div class="bg-warning py-3 mb-4 shadow-sm border-top">
         <div class="container">
             <h6>collection / {{$product->category->name}} / {{$product->name}}</h6>
@@ -12,13 +10,15 @@
                 <div class="col-md-4 ">
                     <img id="img" src="{{asset($product->image)}}" class="img-fluid rounded-start" alt="...">
                 </div>
+
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 id="prod_name" class="card-title">{{$product->name}}</h5>
                         <hr>
                         <label class="me-3">Original Price :<s> {{$product->original_price}}</s></label> &nbsp; &nbsp; &nbsp;
                         <label><b>Price on sale : $</b></label>
-                        <label id="product_price" class="fw-bold"> {{$product->after_sale}}</label>
+                        <label id="productt_price" class="fw-bold"> {{$product->after_sale}}</label>
+
 
                         <p class="card-text">{{$product->description}}</p>
 
@@ -85,12 +85,12 @@
 
         $('#add_cart').click(function (e) {
             e.preventDefault();
-
+            console.log("{{ $product->after_sale }}")
             var product_name=$('#prod_name').text();
             var product_id=$('#prod_id').val();
             var qty=$('#qty_val').val();
             var image=$('#img').attr('src');
-            var product_price=$('#product_price').text();   //label value
+            var product_price=$('#productt_price').text();   //label value
             console.log(product_id,product_name,qty,product_price)
                 // alert(image);
 
@@ -113,6 +113,7 @@
                             title: 'success',
                             text: response.msg,
                         })
+                        window.location.reload()
                     }else{
                         // alert(response.msg);
                         Swal.fire({

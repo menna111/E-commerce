@@ -14,7 +14,7 @@
                     </ul>
                 </div>
             @endif
-            <form id="edit_category" action="{{route('category.update',$category->id)}}" method="POST" enctype="multipart/form-data">
+            <form id="edit"  enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -54,9 +54,8 @@
         </div>
     </div>
 
-@section('script')
     <script>
-        $('#edit_category').submit(function (e) {
+        $('#edit').submit(function (e) {
             e.preventDefault()
             var formData = new FormData(this);
             $.ajax({
@@ -69,16 +68,16 @@
                     if (response.status == true) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'تم بنجاح!',
+                            title: 'success',
                             text: response.msg,
 
                         })
 
-
+                    window.location.reload()
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: 'خطأ',
+                            title: 'error',
                             text: response.msg,
                         })
                     }
@@ -86,4 +85,3 @@
             });
         })
     </script>
-@endsection
