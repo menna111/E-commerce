@@ -15,7 +15,7 @@
             </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="{{route('home')}}">Home</a></li>
+                    <li class="active"><a href="{{route('home')}}">{{__('Home')}}</a></li>
 
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
@@ -24,7 +24,7 @@
                             <li><a href="{{route('shoes')}}">shoes</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('contact')}}">Contact</a></li>
+                    <li><a href="{{route('contact')}}">{{__('Contact')}}</a></li>
                     <li><a href="#">Pages</a>
                         <ul class="dropdown">
                             <li><a href="./blog-details.html">Blog Details</a></li>

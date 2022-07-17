@@ -21,17 +21,31 @@
             @guest
             <div class="ht-right">
                 <a href="{{ route('login') }}" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                <div class="lan-selector">
+                <div class="top-social">
+
+
+
                     {{--                    localization--}}
-                    <ul class="">
+                        <div class="dropdown">
+                            <a class="btn  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+                              <span class="hidden-md-down">
+                                {{\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocaleNative()}}
+                              </span>
+
+                        </a>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                             <li>
-                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                     {{ $properties['native'] }}
                                 </a>
                             </li>
                         @endforeach
-                    </ul>
+
+                        </div>
+
+
                 </div>
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>

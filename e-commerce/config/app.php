@@ -81,6 +81,12 @@ return [
     */
 
     'locale' => 'en',
+    'languages' =>[
+        'ar' =>'العربية',
+        'en' =>'English',
+        'fr' =>'French',
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +171,7 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
 
 

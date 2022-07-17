@@ -28,16 +28,19 @@ use App\Http\Controllers\Admin\subcategoryController;
 //});
 
 Route::get('/test',[TestController::class,'test']);  //seeder
-//Route::get('/',[HomeController::class,'index']);
+//Route::get('/welcome',function (){
+//    return view('welcome');
+//});
 
+Route::get('/payment',[\App\Http\Controllers\PaymentController::class,'payment'])->name('payment');
+Route::get('/cancel',[\App\Http\Controllers\PaymentController::class,'cancel'])->name('cancel');
+Route::get('payment/success',[\App\Http\Controllers\PaymentController::class,'success'])->name('payment.success');
 
-
-
-Route::group(
-    [
-        'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-    ], function(){                                                  //localization
+//Route::group(
+//    [
+//        'prefix' => LaravelLocalization::setLocale(),
+//        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+//    ], function(){                                                  //localization
 
     Auth::routes();
 
@@ -146,4 +149,4 @@ Route::get('error',function (){
 });
 
 
-}); //end of localization
+//}); //end of localization
